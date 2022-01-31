@@ -1,5 +1,4 @@
 This folder regroups files used in order to convert the format of input/output data of our models.
-The following files can be of support:
 
 ## Files
 
