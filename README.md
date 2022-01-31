@@ -109,7 +109,7 @@ Run `allennlp predict [archive file] [input file] --use-dataset-reader --output-
 - `use-dataset-reader` tells the parser to use the same dataset reader as it used during training.
 - `[output file]` is an optional path to save parsing results as JSON; if not provided, the output will be displayed on the console.
 
-The ouput of the parser will be in JSON format. To transform this into the better readable CoNLL-U format, run the [../../data-handling/read_prediction.py](../../data-handling/read_prediction.py) with the following arguments:
+The ouput of the parser will be in JSON format. To transform this into the better readable CoNLL-U format, run the [../../data-conversions/read_prediction.py](https://github.com/interactive-cookbook/tagger-parser/blob/main/data-conversions/read_prediction.py) with the following arguments:
 - `-m [mode]` where `[mode]` can be either `analysis` (for error analysis), `tagger_p2c` (translates tagger output into CoNLL-U file) or `parser_p2c` (translates parser output into CoNLL-U format).
 - `-p [model output]` where `[model output]` is the tagger or parser output in json format. 
 - `-o [file]` to state where you want to save the output. Default: `[model output].conllu`.
