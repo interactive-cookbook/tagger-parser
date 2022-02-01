@@ -23,10 +23,10 @@ Adjust parameters including file paths in the respective `.json` config files, a
 Both our models consume data in CoNLL format where each line represents a token and columns are tab-separated. The column DEPRELS contains additional dependency relations if a token has more than one head.The tagger requires data in the [CoNLL-2003](https://www.clips.uantwerpen.be/conll2003/ner/) format with the relevant columns being the first (TEXT) and the fourth (LABEL). The parser requires data in the [CoNLL-U](https://universaldependencies.org/format.html) format with the relevant columns being the second (FORM), the  fifth (LABEL), the seventh (HEAD) and the eighth (DEPREL). 
 
 Available configurations:
-- `Taggers/tagger_with_bert_config.json` - BiLSTM-CRF tagger using BERT embeddings
-- `Taggers/tagger_with_english_elmo_config.json` - BiLSTM-CRF tagger using English ELMo embeddings
-- `Taggers/tagger_with_german_elmo_config.json` - BiLSTM-CRF tagger using German ELMo embeddings
-- `Parser/parser_config.json` - Biaffine dependency parser (Dozat and Manning, 2017)
+- `tagger/tagger_with_bert_config.json` - BiLSTM-CRF tagger using BERT embeddings
+- `tagger/tagger_with_english_elmo_config.json` - BiLSTM-CRF tagger using English ELMo embeddings
+- `tagger/tagger_with_german_elmo_config.json` - BiLSTM-CRF tagger using German ELMo embeddings
+- `parser/parser_config.json` - Biaffine dependency parser (Dozat and Manning, 2017)
 
 For the ELMo taggers, we use the following ELMo parameters (i.e. options and weights):
 - English: [weights and options](https://allennlp.s3.amazonaws.com/models/ner-model-2018.12.18.tar.gz) (use the weights and options files under `fta/` after unzipping)
