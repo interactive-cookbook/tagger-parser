@@ -18,7 +18,7 @@ pip install allennlp==0.8.4
 
 ## Parameter configuration
 
-Adjust parameters including file paths in the respective `.json` config files, as needed. By default, the paths point to datasets in [`data`](https://github.com/interactive-cookbook/tagger-parser/tree/main/data). See respective README files there for details about the datasets. 
+Adjust parameters including file paths in the respective `.json` config files, as needed. By default, the paths point to datasets in [`data`](data). See respective README files there for details about the datasets. 
 
 Both our models consume data in CoNLL format where each line represents a token and columns are tab-separated. The column DEPRELS contains additional dependency relations if a token has more than one head.The tagger requires data in the [CoNLL-2003](https://www.clips.uantwerpen.be/conll2003/ner/) format with the relevant columns being the first (TEXT) and the fourth (LABEL). The parser requires data in the [CoNLL-U](https://universaldependencies.org/format.html) format with the relevant columns being the second (FORM), the  fifth (LABEL), the seventh (HEAD) and the eighth (DEPREL). 
 
@@ -51,7 +51,7 @@ Run `allennlp evaluate [archive file] [input file] --output-file [output file]` 
 ### Performance
 
 <!-- 
-Tagger performance on the [English corpus](https://github.com/interactive-cookbook/tagger-parser/tree/main/data/English) (test.conll03):
+Tagger performance on the [English corpus](data/English) (test.conll03):
 
 Embedder | Precision | Recall | F-Score
 --- | --- | --- | ---
@@ -65,11 +65,11 @@ Model | Corpus | Embedder | Precision  | Recall | F-Score
 IAA | 100-r by Y'20 | | 89.9 | 92.2 | 90.5
 | | | | | 
 Y'20 | 300-r by Y'20 | | 86.5 | 88.8 | 87.6
-Our tagger  | [300-r by Y'20](https://github.com/interactive-cookbook/tagger-parser/tree/main/data/English/Tagger) | [English ELMo](https://github.com/interactive-cookbook/tagger-parser/blob/main/tagger/tagger_with_english_elmo_config.json) | **89.9** ± 0.5 | **89.2** ± 0.4 | **89.6** ± 0.3
-Our tagger  | [300-r by Y'20](https://github.com/interactive-cookbook/tagger-parser/tree/main/data/English/Tagger) | [multilingual BERT](https://github.com/interactive-cookbook/tagger-parser/blob/main/tagger/tagger_with_bert_config.json) | 88.7 ± 0.4 | 88.4 ± 0.1 | 88.5 ± 0.2
+Our tagger  | [300-r by Y'20](data/English/Tagger) | [English ELMo](tagger/tagger_with_english_elmo_config.json) | **89.9** ± 0.5 | **89.2** ± 0.4 | **89.6** ± 0.3
+Our tagger  | [300-r by Y'20](data/English/Tagger) | [multilingual BERT](tagger/tagger_with_bert_config.json) | 88.7 ± 0.4 | 88.4 ± 0.1 | 88.5 ± 0.2
 | | | | | 
-Our tagger  | [German](https://github.com/interactive-cookbook/tagger-parser/tree/main/data/German/Tagger) | [German ELMo](https://github.com/interactive-cookbook/tagger-parser/blob/main/tagger/tagger_with_german_elmo_config.json) | 79.2 ± 1.4 | 81.2 ± 1.8 | 80.2 ± 1.6
-Our tagger  | [German](https://github.com/interactive-cookbook/tagger-parser/tree/main/data/German/Tagger) | [multilingual BERT](https://github.com/interactive-cookbook/tagger-parser/blob/main/tagger/tagger_with_bert_config.json) | 75.3 ± 0.8 | 76.0 ± 1.0 | 75.7 ± 0.9
+Our tagger  | [German](data/German/Tagger) | [German ELMo](tagger/tagger_with_german_elmo_config.json) | 79.2 ± 1.4 | 81.2 ± 1.8 | 80.2 ± 1.6
+Our tagger  | [German](data/German/Tagger) | [multilingual BERT](tagger/tagger_with_bert_config.json) | 75.3 ± 0.8 | 76.0 ± 1.0 | 75.7 ± 0.9
 
 
 
@@ -89,17 +89,17 @@ Model | Corpus |  Tag source | Precision  | Recall | F-Score
 IAA | 100-r by Y'20 | gold tags | 84.4 | 80.4 | 82.3
  |  |  |  |  |
 Y'20 | 300-r by Y'20 | gold tags | 73.7 | 68.6 | 71.1
-Our parser | [300-r by Y'20](https://github.com/interactive-cookbook/tagger-parser/tree/main/data/English/Parser) | gold tags | 80.4 ± 0.0 | 76.1 ± 0.0 | **78.2** ± 0.0
+Our parser | [300-r by Y'20](data/English/Parser) | gold tags | 80.4 ± 0.0 | 76.1 ± 0.0 | **78.2** ± 0.0
  |  |  |  |  |
-Our parser  | [German](https://github.com/interactive-cookbook/tagger-parser/tree/main/data/German/Parser) | gold tags | 69.3 ± 0.0 | 91.3 ± 0.0 | 78.8 ± 0.0
+Our parser  | [German](data/German/Parser) | gold tags | 69.3 ± 0.0 | 91.3 ± 0.0 | 78.8 ± 0.0
 
 Our parser's performance on machine-tagged data:
 
 Model | Corpus |  Tag source | Precision  | Recall | F-Score 
 --- | --- | --- | --- | --- | --- 
 Y'20 | 300-r by Y'20 | Y'20 tagger | 51.1 | 37.7 | 43.3
-Our parser  | [300-r by Y'20](https://github.com/interactive-cookbook/tagger-parser/tree/main/data/English/Parser) | [our ELMo tagger](https://github.com/interactive-cookbook/tagger-parser/blob/main/tagger/tagger_with_english_elmo_config.json) | 74.4 ± 0.5 | 70.4 ± 1.0 | **72.3** ± 0.8
-Our parser  | [German](https://github.com/interactive-cookbook/tagger-parser/tree/main/data/German/Parser) | [German ELMo tagger](https://github.com/interactive-cookbook/tagger-parser/blob/main/tagger/tagger_with_german_elmo_config.json) | 56.5 ± 1.1 | 82.8 ± 2.2 | 67.1 ± 0.5
+Our parser  | [300-r by Y'20](data/English/Parser) | [our ELMo tagger](tagger/tagger_with_english_elmo_config.json) | 74.4 ± 0.5 | 70.4 ± 1.0 | **72.3** ± 0.8
+Our parser  | [German](data/German/Parser) | [German ELMo tagger](tagger/tagger_with_german_elmo_config.json) | 56.5 ± 1.1 | 82.8 ± 2.2 | 67.1 ± 0.5
 
 ## Prediction
 
@@ -109,9 +109,9 @@ Run `allennlp predict [archive file] [input file] --use-dataset-reader --output-
 - `use-dataset-reader` tells the parser to use the same dataset reader as it used during training.
 - `[output file]` is an optional path to save parsing results as JSON; if not provided, the output will be displayed on the console.
 
-The ouput of the parser will be in JSON format. To transform this into the better readable CoNLL-U format, run the [../../data-conversions/read_prediction.py](https://github.com/interactive-cookbook/tagger-parser/blob/main/data-conversions/read_prediction.py) with the following arguments:
+The ouput of the parser will be in JSON format. To transform this into the better readable CoNLL-U format, run the [../../data-conversions/read_prediction.py](data-conversions/read_prediction.py) with the following arguments:
 - `-m [mode]` where `[mode]` can be either `analysis` (for error analysis), `tagger_p2c` (translates tagger output into CoNLL-U file) or `parser_p2c` (translates parser output into CoNLL-U format).
 - `-p [model output]` where `[model output]` is the tagger or parser output in json format. 
 - `-o [file]` to state where you want to save the output. Default: `[model output].conllu`.
 
-For sample inputs and outputs see [English/Samples](https://github.com/interactive-cookbook/tagger-parser/tree/main/data/English/Samples). 
+For sample inputs and outputs see [English/Samples](data/English/Samples). 
