@@ -10,29 +10,6 @@ The data is **split** into train, development and test set with proportions 80:1
 
 **POS tags** are included in the corpus but were not used for parsing. 
 
-### Dependency parser
-
-The dependency parser requires data in [CoNLL-U](https://universaldependencies.org/format.html) format where each line represents a token and columns are tab-separated. The relevant columns are FORM, LABEL, HEAD, DEPREL (only FORM and LABEL as input to prediction). The column DEPRELS contains additional dependency relations if a token has more than one head.
-
-Excerpt from the corpus in CoNLL-U format:
-```
-ID	FORM 	(LEMMA)	POS	LABEL	(FEATS)	HEAD	DEPREL	DEPRELS	(MISC)
-
-10	Bring	_	VV0	B-Ac	_	15	t	_	_
-11	to	_	II	I-Ac	_	0	root	_	_
-12	the	_	AT	I-Ac	_	0	root	_	_
-13	boil	_	NN1	I-Ac	_	0	root	_	_
-14	and	_	CC	O	_	0	root	_	_
-15	cook	_	VV0	B-Ac	_	149	f-eq	_	_
-16	till	_	NN1	O	_	0	root	_	_
-17	tender	_	NN1	B-Sf	_	15	v-tm	_	_
-18	.	_	.	O	_	0	root	_	_
-19	Meanwhile	_	RR	O	_	0	root	_	_
-20	,	_	,	O	_	0	root	_	_
-21	add	_	VV0	B-Ac	_	29	d	[(35,	'f-eq')]
-22	the	_	AT	O	_	0	root	_	_
-23	carrots	_	NN2	B-F	_	21	t	_	_
-```
 
 ### Tagger
 
@@ -58,6 +35,32 @@ the	AT	O	I-Ac
 boil	NN1	O	I-Ac
 and	CC	O	O
 ```
+
+
+### Dependency parser
+
+The dependency parser requires data in [CoNLL-U](https://universaldependencies.org/format.html) format where each line represents a token and columns are tab-separated. The relevant columns are FORM, LABEL, HEAD, DEPREL (only FORM and LABEL as input to prediction). The column DEPRELS contains additional dependency relations if a token has more than one head.
+
+Excerpt from the corpus in CoNLL-U format:
+```
+ID	FORM 	(LEMMA)	POS	LABEL	(FEATS)	HEAD	DEPREL	DEPRELS	(MISC)
+
+10	Bring	_	VV0	B-Ac	_	15	t	_	_
+11	to	_	II	I-Ac	_	0	root	_	_
+12	the	_	AT	I-Ac	_	0	root	_	_
+13	boil	_	NN1	I-Ac	_	0	root	_	_
+14	and	_	CC	O	_	0	root	_	_
+15	cook	_	VV0	B-Ac	_	149	f-eq	_	_
+16	till	_	NN1	O	_	0	root	_	_
+17	tender	_	NN1	B-Sf	_	15	v-tm	_	_
+18	.	_	.	O	_	0	root	_	_
+19	Meanwhile	_	RR	O	_	0	root	_	_
+20	,	_	,	O	_	0	root	_	_
+21	add	_	VV0	B-Ac	_	29	d	[(35,	'f-eq')]
+22	the	_	AT	O	_	0	root	_	_
+23	carrots	_	NN2	B-F	_	21	t	_	_
+```
+
 
 ### Samples
 
