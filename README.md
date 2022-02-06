@@ -14,7 +14,7 @@ conda activate allennlp
 pip install allennlp==2.8.0
 ```
 
-**Internal note**: this is already set up on the Saarland servers, see details [here](https://github.com/coli-saar/am-parser/wiki/Setup-and-file-locations-on-the-Saarland-servers).
+**Internal note**: both environments are already set up on coli servers, see instructions in the [Wiki](https://github.com/interactive-cookbook/tagger-parser/wiki/Setup-on-the-coli-servers).
 
 ## Parameter configuration
 
