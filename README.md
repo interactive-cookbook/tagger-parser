@@ -1,17 +1,17 @@
 # Tagger and Parser
 
 ## Environment setup
-1. Create a conda environment with Python 3.7
+1. Create a conda environment with Python 3.8
 ```
-conda create -n allennlp python=3.7
+conda create -n allennlp python=3.8
 ```
 2. Activate the new environment
 ```
 conda activate allennlp
 ```
-3. Install allennlp using pip (we use version 0.8.4)
+3. Install the correct version allennlp using pip (we use version 2.8.0 and 0.8.4 respectively)
 ```
-pip install allennlp==0.8.4
+pip install allennlp==2.8.0
 ```
 
 **Internal note**: this is already set up on the Saarland servers, see details [here](https://github.com/coli-saar/am-parser/wiki/Setup-and-file-locations-on-the-Saarland-servers).
@@ -22,7 +22,10 @@ Adjust parameters including file paths in the respective `.json` config files, a
 
 Both our models consume data in CoNLL format where each line represents a token and columns are tab-separated. The column DEPRELS contains additional dependency relations if a token has more than one head.The tagger requires data in the [CoNLL-2003](https://www.clips.uantwerpen.be/conll2003/ner/) format with the relevant columns being the first (TEXT) and the fourth (LABEL). The parser requires data in the [CoNLL-U](https://universaldependencies.org/format.html) format with the relevant columns being the second (FORM), the  fifth (LABEL), the seventh (HEAD) and the eighth (DEPREL). 
 
-Available configurations:
+Available AllenNLP 2.8 configurations:
+- `tagger/tagger_bart-bilstm-cnn-crf.json` - BiLSTM-CRF tagger using BART embeddings and CNN character encodings
+
+Available AllenNLP 0.8 configurations:
 - `tagger/tagger_with_bert_config.json` - BiLSTM-CRF tagger using BERT embeddings
 - `tagger/tagger_with_english_elmo_config.json` - BiLSTM-CRF tagger using English ELMo embeddings
 - `tagger/tagger_with_german_elmo_config.json` - BiLSTM-CRF tagger using German ELMo embeddings
@@ -67,6 +70,7 @@ IAA | 100-r by Y'20 | | 89.9 | 92.2 | 90.5
 Y'20 | 300-r by Y'20 | | 86.5 | 88.8 | 87.6
 Our tagger  | [300-r by Y'20](data/English/Tagger) | [English ELMo](tagger/tagger_with_english_elmo_config.json) | **89.9** ± 0.5 | **89.2** ± 0.4 | **89.6** ± 0.3
 Our tagger  | [300-r by Y'20](data/English/Tagger) | [multilingual BERT](tagger/tagger_with_bert_config.json) | 88.7 ± 0.4 | 88.4 ± 0.1 | 88.5 ± 0.2
+Our tagger  | [300-r by Y'20](data/English/Tagger) | [facebook/bart-large](tagger/tagger_bart-bilstm-cnn-crf.jsonnet) | TBD | TBD | TBD
 | | | | | 
 Our tagger  | [German](data/German/Tagger) | [German ELMo](tagger/tagger_with_german_elmo_config.json) | 79.2 ± 1.4 | 81.2 ± 1.8 | 80.2 ± 1.6
 Our tagger  | [German](data/German/Tagger) | [multilingual BERT](tagger/tagger_with_bert_config.json) | 75.3 ± 0.8 | 76.0 ± 1.0 | 75.7 ± 0.9
