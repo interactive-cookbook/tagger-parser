@@ -70,7 +70,7 @@ IAA | 100-r by Y'20 | | 89.9 | 92.2 | 90.5
 Y'20 | 300-r by Y'20 | | 86.5 | 88.8 | 87.6
 Our tagger  | [300-r by Y'20](data/English/Tagger) | [English ELMo](tagger/tagger_with_english_elmo_config.json) | **89.9** ± 0.5 | **89.2** ± 0.4 | **89.6** ± 0.3
 Our tagger  | [300-r by Y'20](data/English/Tagger) | [multilingual BERT](tagger/tagger_with_bert_config.json) | 88.7 ± 0.4 | 88.4 ± 0.1 | 88.5 ± 0.2
-Our tagger  | [300-r by Y'20](data/English/Tagger) | [facebook/bart-large](tagger/tagger_bart-bilstm-cnn-crf.jsonnet) | TBD | TBD | TBD
+Our tagger  | [300-r by Y'20](data/English/Tagger) | [facebook/bart-large](tagger_bart-bilstm-crf.json) | 82.4 | 85.3 | 83.8
 | | | | | 
 Our tagger  | [German](data/German/Tagger) | [German ELMo](tagger/tagger_with_german_elmo_config.json) | 79.2 ± 1.4 | 81.2 ± 1.8 | 80.2 ± 1.6
 Our tagger  | [German](data/German/Tagger) | [multilingual BERT](tagger/tagger_with_bert_config.json) | 75.3 ± 0.8 | 76.0 ± 1.0 | 75.7 ± 0.9
