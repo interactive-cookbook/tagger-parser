@@ -9,13 +9,7 @@ conda create -n allennlp python=3.7
 ```
 conda activate allennlp
 ```
-3. Install allennlp using pip (we use version 0.8.4)
-```
-pip install allennlp==0.8.4
-```
-You may also need to install further packages with versions as specified in `requirements.txt`.
-
-Usage:
+3. Install allennlp (we use version 0.8.4) and other packages using pip 
 ```
 pip install -r requirements.txt
 ```
