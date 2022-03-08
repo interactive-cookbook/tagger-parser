@@ -9,9 +9,9 @@ conda create -n allennlp python=3.8
 ```
 conda activate allennlp
 ```
-3. Install the correct version allennlp using pip (we use version 2.8.0 and 0.8.4 respectively)
+3. Install allennlp (we use version 0.8.4) and other packages using pip 
 ```
-pip install allennlp==2.8.0
+pip install -r requirements.txt
 ```
 
 **Internal note**: both environments are already set up on coli servers, see instructions in the [Wiki](https://github.com/interactive-cookbook/tagger-parser/wiki/Setup-on-the-coli-servers).
