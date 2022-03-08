@@ -23,12 +23,13 @@ Adjust parameters including file paths in the respective `.json` config files, a
 Both our models consume data in CoNLL format where each line represents a token and columns are tab-separated. The column DEPRELS contains additional dependency relations if a token has more than one head.The tagger requires data in the [CoNLL-2003](https://www.clips.uantwerpen.be/conll2003/ner/) format with the relevant columns being the first (TEXT) and the fourth (LABEL). The parser requires data in the [CoNLL-U](https://universaldependencies.org/format.html) format with the relevant columns being the second (FORM), the  fifth (LABEL), the seventh (HEAD) and the eighth (DEPREL). 
 
 Available AllenNLP 2.8 configurations:
-- `tagger/tagger_bart-bilstm-cnn-crf.json` - BiLSTM-CRF tagger using BART embeddings and CNN character encodings
+- `tagger/2.8_bart_tagger.jsonnet` - BiLSTM-CRF tagger using BART embeddings
+- `tagger/2.8_bert_tagger.jsonnet` - BiLSTM-CNN-CRF tagger using BERT embeddings
 
 Available AllenNLP 0.8 configurations:
-- `tagger/tagger_with_bert_config.json` - BiLSTM-CRF tagger using BERT embeddings
-- `tagger/tagger_with_english_elmo_config.json` - BiLSTM-CRF tagger using English ELMo embeddings
-- `tagger/tagger_with_german_elmo_config.json` - BiLSTM-CRF tagger using German ELMo embeddings
+- `tagger/tagger_with_bert_config.json` - BiLSTM-CNN-CRF tagger using BERT embeddings
+- `tagger/tagger_with_english_elmo_config.json` - BiLSTM-CNN-CRF tagger using English ELMo embeddings
+- `tagger/tagger_with_german_elmo_config.json` - BiLSTM-CNN-CRF tagger using German ELMo embeddings
 - `parser/parser_config.json` - Biaffine dependency parser (Dozat and Manning, 2017)
 
 For the ELMo taggers, we use the following ELMo parameters (i.e. options and weights):
