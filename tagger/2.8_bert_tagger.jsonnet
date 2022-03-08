@@ -39,12 +39,12 @@ local gradient_checkpointing = true;
 local use_amp = false;
 
 // data paths
-local train_data_path = '/proj/cookbook/interactive-cookbook/data/English/Tagger/train.conll03';
-local validation_data_path = '/proj/cookbook/interactive-cookbook/data/English/Tagger/dev.conll03';
-local test_data_path = '/proj/cookbook/interactive-cookbook/data/English/Tagger/test.conll03';
+local train_data_path = 'data/English/Tagger/train.conll03';
+local validation_data_path = 'data/English/Tagger/dev.conll03';
+local test_data_path = 'data/English/Tagger/test.conll03';
 
 // change to false to disable sanity checks
-local sanity_check = false;
+local sanity_check = true;
 
 {
   dataset_reader: {
