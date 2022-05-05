@@ -63,10 +63,6 @@ English ELMo | 89.9 | 89.2 | 89.6
 multilingual BERT | 88.7 | 88.4 | 88.5 
 -->
 
-- [`tagger/elmo_eng.jsonnet`](tagger/elmo_eng.jsonnet) - BiLSTM-CNN-CRF tagger using NER-fine-tuned ELMo embeddings
-- [`tagger/bert-base_eng.json`](tagger/bert-base_eng.json) - BiLSTM-CRF tagger using BERT-base-NER embeddings
-- [`tagger/bert-large_eng.json`](tagger/bert-large_eng.json) - BiLSTM-CRF tagger using BERT-large-NER embeddings
-
 Our tagger's performance on our data split:
 Model | Corpus | Embedder | Precision  | Recall | F-Score  
 --- | --- | --- | --- | --- | ---
