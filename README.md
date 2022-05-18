@@ -23,9 +23,9 @@ Adjust parameters including file paths in the respective `.json` config files, a
 Both our models consume data in CoNLL format where each line represents a token and columns are tab-separated. The column DEPRELS contains additional dependency relations if a token has more than one head.The tagger requires data in the [CoNLL-2003](https://www.clips.uantwerpen.be/conll2003/ner/) format with the relevant columns being the first (TEXT) and the fourth (LABEL). The parser requires data in the [CoNLL-U](https://universaldependencies.org/format.html) format with the relevant columns being the second (FORM), the  fifth (LABEL), the seventh (HEAD) and the eighth (DEPREL). 
 
 Available tagger configurations:
-- [`tagger/elmo_eng.jsonnet`](tagger/elmo_eng.jsonnet) - BiLSTM-CNN-CRF tagger using NER-fine-tuned ELMo embeddings
-- [`tagger/bert-base_eng.jsonnet`](tagger/bert-base_eng.jsonnet) - BiLSTM-CRF tagger using BERT-base-NER embeddings
-- [`tagger/bert-large_eng.jsonnet`](tagger/bert-large_eng.jsonnet) - BiLSTM-CRF tagger using BERT-large-NER embeddings
+- [`tagger/elmo_eng.jsonnet`](tagger/elmo_eng.jsonnet) - BiLSTM-CNN-CRF tagger using [NER-fine-tuned ELMo](https://arxiv.org/abs/1705.00108v1) embeddings
+- [`tagger/bert-base_eng.jsonnet`](tagger/bert-base_eng.jsonnet) - BiLSTM-CRF tagger using [BERT-base-NER](https://huggingface.co/dslim/bert-base-NER) embeddings
+- [`tagger/bert-large_eng.jsonnet`](tagger/bert-large_eng.jsonnet) - BiLSTM-CRF tagger using [BERT-large-NER](https://huggingface.co/dslim/bert-large-NER) embeddings
 
 Available parser configurations:
 - [`parser/parser.jsonnet`](parser/parser.jsonnet) - Biaffine dependency parser (Dozat and Manning, 2017)
