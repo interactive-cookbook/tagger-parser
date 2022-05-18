@@ -1,4 +1,4 @@
-# Tagger (AllenNLP 2.8 Implementation)
+# Tagger and Parser(AllenNLP 2.8 Implementation)
 
 ## Environment setup
 1. Create a conda environment with Python 3.8
@@ -24,12 +24,12 @@ Both our models consume data in CoNLL format where each line represents a token 
 
 Available tagger configurations:
 - [`tagger/elmo_eng.jsonnet`](tagger/elmo_eng.jsonnet) - BiLSTM-CNN-CRF tagger using NER-fine-tuned ELMo embeddings
-- [`tagger/bert-base_eng.json`](tagger/bert-base_eng.json) - BiLSTM-CRF tagger using BERT-base-NER embeddings
-- [`tagger/bert-large_eng.json`](tagger/bert-large_eng.json) - BiLSTM-CRF tagger using BERT-large-NER embeddings
+- [`tagger/bert-base_eng.jsonnet`](tagger/bert-base_eng.jsonnet) - BiLSTM-CRF tagger using BERT-base-NER embeddings
+- [`tagger/bert-large_eng.jsonnet`](tagger/bert-large_eng.jsonnet) - BiLSTM-CRF tagger using BERT-large-NER embeddings
 
-<!-- Available parser configurations (AllenNLP 0.8):
-- `parser/parser_config.json` - Biaffine dependency parser (Dozat and Manning, 2017)
- -->
+Available parser configurations:
+- [`parser/parser.jsonnet`](parser/parser.jsonnet) - Biaffine dependency parser (Dozat and Manning, 2017)
+
  
 For the ELMo taggers, we use the following ELMo parameters (i.e. options and weights):
 - English: [weights and options](https://allennlp.s3.amazonaws.com/models/ner-model-2018.12.18.tar.gz) (use the weights and options files under `fta/` after unzipping)
@@ -52,7 +52,7 @@ Run `allennlp evaluate [archive file] [input file] --output-file [output file]` 
 - `[input file]` is the path to the file containing the evaluation data.
 - `[output file]` is an optional path to save the metrics as JSON; if not provided, the output will be displayed on the console.
 
-### Performance
+### Performance (TODO - Needs updating)
 
 <!-- 
 Tagger performance on the [English corpus](data/English) (test.conll03):
