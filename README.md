@@ -66,9 +66,9 @@ multilingual BERT | 88.7 | 88.4 | 88.5
 Our tagger's performance on our data split:
 Model | Corpus | Embedder | Precision  | Recall | F-Score  
 --- | --- | --- | --- | --- | ---
-Our tagger  | [300-r by Y'20](data/English/Tagger) | [NER ELMo](tagger/elmo_eng.jsonnet) | 85.17%	| 86.36%	| 85.76%
-Our tagger  | [300-r by Y'20](data/English/Tagger) | [BERT-base-NER](tagger/bert-base_eng.json) | 83.89% |	86.96%	| 85.40%
-Our tagger  | [300-r by Y'20](data/English/Tagger) | [BERT-large-NER](tagger/bert-large_eng.json) | **85.95%**	| **87.09**% | **86.52%**
+Our tagger  | [300-r by Y'20](data/English/Tagger) | [NER ELMo](tagger/elmo_eng.jsonnet) | 85.86%	| 86.89%	| 85.86.38%
+Our tagger  | [300-r by Y'20](data/English/Tagger) | [BERT-base-NER](tagger/bert-base_eng.json) | 84.45% |	86.02%	| 85.23%
+Our tagger  | [300-r by Y'20](data/English/Tagger) | [BERT-large-NER](tagger/bert-large_eng.json) | **85.96%**	| **87.96**% | **86.95%**
 <!-- | | | | | 
 Our tagger  | [German](data/German/Tagger) | [German ELMo](tagger/tagger_with_german_elmo_config.json) | 79.2 ± 1.4 | 81.2 ± 1.8 | 80.2 ± 1.6
 Our tagger  | [German](data/German/Tagger) | [multilingual BERT](tagger/tagger_with_bert_config.json) | 75.3 ± 0.8 | 76.0 ± 1.0 | 75.7 ± 0.9 -->
@@ -91,14 +91,14 @@ Our tagger  | [German](data/German/Tagger) | [multilingual BERT](tagger/tagger_w
  -->
 
 
-<!-- 
+
 Parser performance on the [English corpus](https://github.com/interactive-cookbook/tagger-parser/tree/main/data/English/Parser) (test.conllu):
 
 Tag Source | Precision | Recall | F-Score
 --- | --- | --- | ---
 gold tags | 80.4 | 76.1 | 78.2 
 our tagger with ELMo embeddings | 74.4 | 70.4 | 72.3
--->
+
 
 <!-- Our parser's performance compared to Y'20's performance and inter-annotator agreement (IAA).
 

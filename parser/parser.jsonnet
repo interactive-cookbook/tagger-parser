@@ -10,8 +10,8 @@
             }
         }
     },
-    train_data_path: "/local/siyutao/tagger-parser/data/English/Parser/train.conllu",
-    validation_data_path: "/local/siyutao/tagger-parser/data/English/Parser/dev.conllu",
+    train_data_path: "data/English/Parser/train.conllu",
+    validation_data_path: "data/English/Parser/dev.conllu",
     model: {
       type: "biaffine_parser",
       text_field_embedder: {
