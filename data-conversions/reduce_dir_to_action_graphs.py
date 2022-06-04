@@ -1,5 +1,6 @@
 import os
 import argparse
+import reduce_graph
 
 def only_actions(line):
 	"""
@@ -51,19 +52,32 @@ def traverse(root_dir, out_dir):
 	"""
 	Traverse all subdirectories of 'root_dir' and change the tags in all files found. Result files are saved to a potentially new directory out_dir.
 	"""
-	if not os.path.exists("OnlyActions"):
-		os.mkdir("OnlyActions")
+	global sequences, reduced_graph
+	if not os.path.exists("ActionGraphs"):
+		os.mkdir("ActionGraphs")
 
 	for dirName, subdirList, fileList in os.walk(root_dir):
 
-		targetpath = ("\\").join(["OnlyActions"] + dirName.split("\\")[1:])
-		if not os.path.exists(targetpath):
-			os.mkdir(targetpath)
+		outpath = ("\\").join(["ActionGraphs"] + dirName.split("\\")[1:])
+		if not os.path.exists(outpath):
+			os.mkdir(outpath)
 
 		for file in fileList:
-			sourcefile = dirName + "\\" + os.fsdecode(file)
-			targetfile = targetpath + "\\" + os.fsdecode(file)
-			read_print(sourcefile, targetfile)
+			infile = dirName + "\\" + os.fsdecode(file)
+			outfile = outpath + "\\" + os.fsdecode(file)
+			#read_print(infile, outfile)
+
+			desired = {"B-Ac", "I-Ac", "U-Ac", "L-Ac", "B-At", "I-At", "U-At", "L-At", "B-Af", "I-Af", "U-Af", "L-Af", "B-Ac2", "I-Ac2", "U-Ac2", "L-Ac2"}
+
+			child2heads, head2children, desired_tokens_ids, sequences = reduce_graph.read_file(infile, desired)
+			# Compute reduced graph
+			reduced_graph = reduce_graph.generate_graph(child2heads, head2children, desired_tokens_ids)
+
+			# transform graph
+			token2heads = reduce_graph.get_token_head_mapping(reduced_graph, sequences)
+
+			# final output
+			reduce_graph.write_to_file(outpath, infile, os.fsdecode(file), token2heads, desired)
 
 
 
@@ -71,7 +85,7 @@ def traverse(root_dir, out_dir):
 if __name__ == "__main__":
 	# parser for command line arguments
     arg_parser = argparse.ArgumentParser(
-        description="""Traverses a directory structure and rebuilds it in a new directory OUT_DIR. All files are expected to be in CoNLL-U format, specifying tags in the 5th column. The tags will be changed s.t. all labels starting with 'A' are changed into 'A' and all other labels are changed into O. For the action tags with 'A', BIOUL tags will also be changed into IOB2 tags, i.e. U will be changed into B and L will be changed into I."""
+        description="""Traverses a directory structure of Y'20 style recipe graphs and rebuilds it in a new directory OUT_DIR containing action graphs. All files are expected to be in CoNLL-U format, specifying tags in the 5th column. The tags will be changed s.t. all labels starting with 'A' are changed into 'A' and all other labels are changed into O. For the action tags with 'A', BIOUL tags will also be changed into IOB2 tags, i.e. U will be changed into B and L will be changed into I. Paths between actions in the recipe graph become edges in the action graph."""
     )
     arg_parser.add_argument(
         "dir",
@@ -80,7 +94,7 @@ if __name__ == "__main__":
     arg_parser.add_argument(
     	"--out-dir",
     	dest="out_dir",
-    	default="OnlyActions",
+    	default="ActionGraphs",
     	help="""You may specify an output directory. Default: ./OnlyActions""")
     args = arg_parser.parse_args()
 

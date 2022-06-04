@@ -1,33 +1,19 @@
-# Author : Theresa Schmidt
-
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-
-"""
-Takes CoNLL-U file with exactly one recipe graph (Yamakata'20 labels) and computes reduced graph for it. The reduced graphs contains only action, tool and food labels. The output is a CoNLL-U file.
-"""
-
-
 from collections import defaultdict
 from ast import literal_eval
 from copy import copy
 import argparse 
 import os
 
+#infile = "3-ingredient-peanut-butter-cookies-popsugar.deps.conllu"
+#outfile = "3-ingredient-peanut-butter-cookies-popsugar.reduced_graphs.conllu"
 
 
 def has_target(line):
     # whether the node described in line has at least one head
-    return line[6] != "0"
+    if line == ["\n"]:
+        return False
+    else:
+        return line[6] != "0"
 
 def heads(line):
     # Heads of a token are in column 6 and in column 8 (in the latter case paired with dep types)
@@ -36,19 +22,18 @@ def heads(line):
     else:
         return [x for (x,y) in literal_eval(line[8])].append(line[6])
 
-def is_desired_token(line):
+def is_desired_token(line, desired):
     # returns True if the token's seuquence tag (CoNLL-U column 4) is one of the desired labels, i.e. one of
     # {Ac, Ac2, At, Af, F, T}, the set of all actions, tools and foods
     # (for event graphs / action graphs only {Ac, Ac2, At, Af})
 
-    desired = {"B-Ac", "I-Ac", "B-At", "I-At", "B-Af", "I-Af", "B-Ac2", "I-Ac2", "B-F", "I-F", "B-T", "I-T"}
     try:
         return line[4] in desired
     except IndexError:
         return False
 
 def graph_columns(index, tag, token2heads):
-    # computes CoNLL-U representation of the structural information for on token
+    # computes CoNLL-U representation of the structural information for one token
 
     ## tokens without heads
     try:
@@ -68,7 +53,7 @@ def graph_columns(index, tag, token2heads):
         # in sequences, only the first token is annotated with head(s)
         return ["0", "root", "_"]
 
-def read_file(infile):
+def read_file(infile, desired):
     """
     Reads a CoNLL-U file
     
@@ -87,6 +72,7 @@ def read_file(infile):
 
     with open(infile, "r", encoding="utf-8") as f:
         for line in f:
+            print(line)
             line = line.split("\t")
             if has_target(line):
                 targets = heads(line)
@@ -95,7 +81,7 @@ def read_file(infile):
                     child2heads[t].extend([]) # s.t. all nodes are listed in c2h-dict in the end
                     head2children[t].append(line[0])
                 head2children[line[0]].extend([]) # s.t. all nodes are listed as keys in h2c-dict in the end
-            if is_desired_token(line):
+            if is_desired_token(line, desired):
                 desired_tokens_ids.add(line[0])
                 #SEQUENCES
                 if line[4].startswith("B"):
@@ -127,9 +113,47 @@ def get_token_head_mapping(reduced_graph, sequences):
             token2heads[s] = seq2heads[seq]
 
     return token2heads
+    
+
+def iob2(bio):
+    """
+    If bio comes from the BIOUL tagging scheme, it is changed into the respective IOB2 tag.
+    """
+    if bio == "B":
+        return bio
+    elif bio == "I":
+        return bio
+    elif bio == "U":
+        return "B"
+    elif bio == "L":
+        return "I"
+    else:
+        raise RuntimeError("Unknown BIOUL tag ", bio)
 
 
-def write_to_file(outdirectory, infile, outfile, token2heads):
+def reduced_label(label):
+    """
+    Changes labels Ac, Ac2, At, Af into A; leaves all other labels unchanged.
+    """
+    if label in {"Ac", "Ac2", "At", "Af"}:
+        return "A"
+    else:
+        return label
+
+
+def reduced_tag(tag):
+    """
+    Changes labels Ac, Ac2, At, Af into A and BIOUL tagging scheme into IOB2 tagging scheme.
+    """
+    bio, label = tag.split("-")
+    bio = iob2(bio)
+    label = reduced_label(label)
+
+    r = bio + "-" + label
+    return r
+
+
+def write_to_file(outdirectory, infile, outfile, token2heads, desired):
 
     # Make outfile directory if necessary
     if not os.path.exists(outdirectory):
@@ -140,9 +164,9 @@ def write_to_file(outdirectory, infile, outfile, token2heads):
         with open(infile, "r", encoding="utf-8") as f:
             for line in f:
                 line = line.split("\t")
-                if is_desired_token(line):
+                if is_desired_token(line, desired):
                     # copies line from infile, reduces xpos tags to three letters (e.g. "B-Ac" becomes "B-A"), and replaces HEAD, DEP and DEPS columns with the reduced graph
-                    o.write("\t".join(line[0:4] + [line[4][:3]]+["_"] + graph_columns(line[0], line[4], token2heads)))
+                    o.write("\t".join(line[0:4] + [reduced_tag(line[4])] + ["_"] + graph_columns(line[0], line[4], token2heads)))
                     o.write("\t_\n")
                 else:
                     o.write("\t".join(line[0:4] + ["O", "_", "0", "root", "_", "_"]))
@@ -181,18 +205,18 @@ def generate_graph(child2heads, head2children, desired_tokens_ids):
     return reduced_graph
 
 
-def main(infile, outdirectory, outfile):
+def main(desired, infile, outdirectory, outfile):
     
-    child2heads, head2children, desired_tokens_ids, sequences = read_file(infile)
+    child2heads, head2children, desired_tokens_ids, sequences = read_file(infile, desired)
 
-    # compute reduced graph
+    # Compute reduced graph
     reduced_graph = generate_graph(child2heads, head2children, desired_tokens_ids)
 
     # transform graph
     token2heads = get_token_head_mapping(reduced_graph, sequences)
 
     # final output
-    write_to_file(outdirectory, infile, outfile, token2heads)
+    write_to_file(outdirectory, infile, outfile, token2heads, desired)
 
 
 
@@ -202,7 +226,8 @@ if __name__ == "__main__":
 
     # parser for command line arguments
     arg_parser = argparse.ArgumentParser(
-        description="""Takes CoNLL-U file with exactly one recipe graph (Yamakata'20 labels) and computes reduced graph for it. The reduced graphs contains only action, tool and food labels. The output is a CoNLL-U file.""")
+        description="""Takes CoNLL-U file with exactly one recipe graph (Yamakata'20 labels) and computes reduced graph for it. The reduced graph either contains only action, tool and food nodes (mode "fat") or only action nodes (mode "a"). BIOUL lables are changed into IOB2 labels. The output is a CoNLL-U file.""")
+    arg_parser.add_argument("mode", help="""Specify which node types the reduced graph should have. Choose either "fat" or "a". """)
     arg_parser.add_argument("-f", "--file", dest="infile",
                             help="""CoNLL-U file with recipe graph""")
     arg_parser.add_argument("-o", "--output_file", dest="out", metavar="OUTPUT_FILE",
@@ -212,6 +237,14 @@ if __name__ == "__main__":
     if args.out:
         main(args.infile, args.out.split("/")[:-1], args.out) #TODO
     else:
-        # assumption: args.infile = "parsed.tagged.dish_name_elements_id.conllu"
+        # assumption: args.infile = "parse.tagged.dish_name_elements_id.conllu"
         name_elements = args.infile.split(".")[-2].split("_")
-        main(args.infile, "data/" + "_".join(name_elements[:-1]), "_".join(name_elements)+".conllu")
+
+        # define set of 'desired labels'
+        if args.mode == "fat":
+            desired = {"B-Ac", "I-Ac", "U-Ac", "L-Ac", "B-At", "I-At", "U-At", "L-At", "B-Af", "I-Af", "U-Af", "L-Af", "B-Ac2", "I-Ac2", "U-Ac2", "L-Ac2", "B-F", "I-F", "U-F", "L-F", "B-T", "I-T", "U-T", "L-T"}
+        elif args.mode == "a":
+            desired = {"B-Ac", "I-Ac", "U-Ac", "L-Ac", "B-At", "I-At", "U-At", "L-At", "B-Af", "I-Af", "U-Af", "L-Af", "B-Ac2", "I-Ac2", "U-Ac2", "L-Ac2"}
+        else:
+            raise IOError("Please specify a valid mode, i.e. either 'fat' or 'a'.")
+        main(desired, args.infile, "data/" + "_".join(name_elements[:-1]), "_".join(name_elements)+".conllu")
