@@ -112,6 +112,7 @@ def read_file(infile, desired):
                     seq_buffer = [line[0]]
                 elif line[4].startswith("I"):
                     seq_buffer.append(line[0])
+        sequences.append(seq_buffer)
 
     return child2heads, head2children, desired_tokens_ids, sequences
 
@@ -332,7 +333,8 @@ if __name__ == "__main__":
             outdirectory = "."
     else:
         # assumption: args.infile = "some_prefix.possibly_even_more_prefixes.dish_name_and_id.conllu"
-        name_elements = args.infile.split(".")[-2].split("_")
+        indirectory, infile = os.path.split(args.infile)
+        name_elements = infile.split(".")[-2].split("_")
         outdirectory = "data/" + "_".join(name_elements[:-1])
         outfilename = "_".join(name_elements) + ".conllu"
 

@@ -25,7 +25,7 @@ import reduce_graph
 
 def only_actions(line):
     """
-    Takes line from tagged file in CoNLL-U format. Tags can be in BIOUL or IOB2 and will be returned in IOB2.
+    Takes line from tagged (and parsed) file in CoNLL-U format. Tags can be in BIOUL or IOB2 and will be returned in IOB2.
 
     Returns the line with the tags changed as follows:
     All labels starting with an A are assumed to be action labels and will be changed to A, e.g. B-At -> B-A ; L-Ac2 -> I-A ; U-Af -> B-A.
