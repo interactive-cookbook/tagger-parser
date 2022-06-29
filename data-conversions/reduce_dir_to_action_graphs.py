@@ -81,13 +81,13 @@ def traverse(root_dir, out_dir):
 
     for dirName, subdirList, fileList in os.walk(root_dir):
 
-        outpath = ("\\").join([out_dir] + dirName.split("\\")[1:])
+        outpath = os.path.join(out_dir,os.path.split(dirName)[1])
         if not os.path.exists(outpath):
             os.mkdir(outpath)
 
         for file in fileList:
-            infile = dirName + "\\" + os.fsdecode(file)
-            outfile = outpath + "\\" + os.fsdecode(file)
+            infile = os.path.join(dirName, os.fsdecode(file))
+            outfile = os.path.join(outpath, os.fsdecode(file))
             # read_print(infile, outfile)
 
             desired = {
