@@ -50,6 +50,8 @@ Run `allennlp evaluate [archive file] [input file] --output-file [output file]` 
 
 ### Performance
 
+**ERRATUM** (Donatelli et al., EMNLP 2021): Please refer to our [Wiki page](https://github.com/interactive-cookbook/tagger-parser/wiki/Erratum-(EMNLP-2021-Paper)) for a list of corrections, particularly concerning the reporting of results and comparability.
+
 <!-- 
 Tagger performance on the [English corpus](data/English) (test.conll03):
 
