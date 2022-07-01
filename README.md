@@ -22,10 +22,6 @@ Adjust parameters including file paths in the respective `.json` config files, a
 
 Both our models consume data in CoNLL format where each line represents a token and columns are tab-separated. The column DEPRELS contains additional dependency relations if a token has more than one head.The tagger requires data in the [CoNLL-2003](https://www.clips.uantwerpen.be/conll2003/ner/) format with the relevant columns being the first (TEXT) and the fourth (LABEL). The parser requires data in the [CoNLL-U](https://universaldependencies.org/format.html) format with the relevant columns being the second (FORM), the  fifth (LABEL), the seventh (HEAD) and the eighth (DEPREL). 
 
-Available AllenNLP 2.8 configurations:
-- `tagger/2.8_bart_tagger.jsonnet` - BiLSTM-CRF tagger using BART embeddings
-- `tagger/2.8_bert_tagger.jsonnet` - BiLSTM-CNN-CRF tagger using BERT embeddings
-
 Available AllenNLP 0.8 configurations:
 - `tagger/tagger_with_bert_config.json` - BiLSTM-CNN-CRF tagger using BERT embeddings
 - `tagger/tagger_with_english_elmo_config.json` - BiLSTM-CNN-CRF tagger using English ELMo embeddings
@@ -71,7 +67,6 @@ IAA | 100-r by Y'20 | | 89.9 | 92.2 | 90.5
 Y'20 | 300-r by Y'20 | | 86.5 | 88.8 | 87.6
 Our tagger  | [300-r by Y'20](data/English/Tagger) | [English ELMo](tagger/tagger_with_english_elmo_config.json) | **89.9** ± 0.5 | **89.2** ± 0.4 | **89.6** ± 0.3
 Our tagger  | [300-r by Y'20](data/English/Tagger) | [multilingual BERT](tagger/tagger_with_bert_config.json) | 88.7 ± 0.4 | 88.4 ± 0.1 | 88.5 ± 0.2
-Our tagger  | [300-r by Y'20](data/English/Tagger) | [facebook/bart-large](tagger/2.8_tagger_bart-bilstm-crf.json) | 82.4 | 85.3 | 83.8
 | | | | | 
 Our tagger  | [German](data/German/Tagger) | [German ELMo](tagger/tagger_with_german_elmo_config.json) | 79.2 ± 1.4 | 81.2 ± 1.8 | 80.2 ± 1.6
 Our tagger  | [German](data/German/Tagger) | [multilingual BERT](tagger/tagger_with_bert_config.json) | 75.3 ± 0.8 | 76.0 ± 1.0 | 75.7 ± 0.9
@@ -109,7 +104,7 @@ Our parser  | [German](data/German/Parser) | [German ELMo tagger](tagger/tagger_
 ## Prediction
 
 Run `allennlp predict [archive file] [input file] --use-dataset-reader --output-file [output file]` to parse a file with a pretrained model, where
-- `[archive file]` i is the path to an archived trained model.
+- `[archive file]` is the path to an archived trained model.
 - `[input file]` is the path to the file you want to parse; this file should be in the same format as the training data, i.e. CoNLL-2003 for the tagger and CoNLL-U for the parser.
 - `use-dataset-reader` tells the parser to use the same dataset reader as it used during training.
 - `[output file]` is an optional path to save parsing results as JSON; if not provided, the output will be displayed on the console.
