@@ -6,3 +6,5 @@ This folder regroups files used in order to convert the format of input/output d
 - `flowgraph_to_conll.py`: Creates CoNLL-U and CoNLL2003 formatted tsv files from flowgraph annotation files (described [here](https://sites.google.com/view/yy-lab/resource/english-recipe-flowgraph)).
 - `read_prediction.py`: Creates CoNLL-U and CoNLL2003 formatted tsv files from our tagger's or parser's output files. Also creates files for error analysis.
 - `id_mappings.tsv`: Associates the names we use for the recipes with the names L'20 used, i.e. with the URLs to the original recipes.
+- `reduce_graph.py`: This script converts one CoNNL-U recipe graph with Y'20 labels and dependencies into an action graph or FAT graph.
+- `reduce_dir_to_action_graphs`: Traverses a directory and generates action graphs for all recipe graphs in it using `reduce_graph.py`.
