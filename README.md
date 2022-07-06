@@ -29,8 +29,8 @@ Available AllenNLP 0.8 configurations:
 - `parser/parser_config.json` - Biaffine dependency parser (Dozat and Manning, 2017)
 
 For the ELMo taggers, we use the following ELMo parameters (i.e. options and weights):
-- English: [weights and options](https://allennlp.s3.amazonaws.com/models/ner-model-2018.12.18.tar.gz) (use the weights and options files under `fta/` after unzipping)
-- German: [weights](https://github.com/t-systems-on-site-services-gmbh/german-elmo-model/releases/download/files_1/weights.hdf5) and [options](https://github.com/t-systems-on-site-services-gmbh/german-elmo-model/releases/download/files_1/options.json)
+- [English](https://api.semanticscholar.org/CorpusID:7197241): [weights and options](https://allennlp.s3.amazonaws.com/models/ner-model-2018.12.18.tar.gz) (use the weights and options files under `fta/` after unzipping)
+- [German](https://github.com/t-systems-on-site-services-gmbh/german-elmo-model): [weights](https://github.com/t-systems-on-site-services-gmbh/german-elmo-model/releases/download/files_1/weights.hdf5) and [options](https://github.com/t-systems-on-site-services-gmbh/german-elmo-model/releases/download/files_1/options.json)
 
 **Internal note**: the ELMo options and weight files can be found on the Saarland servers at `/proj/cookbook/`.
 
