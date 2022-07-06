@@ -28,6 +28,7 @@ import json
 from ast import literal_eval
 import logging
 from collections import defaultdict
+import csv
 
 def read_prediction_tokens(pred_file):
     """
@@ -184,7 +185,7 @@ def evaluate_parser_labelled(args):
         if pred_head == "0":
             # if no edge is predicted
             if pred_head not in gold.keys():
-                # but edge exists in gold (= "0" is not in gold)
+                # but edge exists in gold (i.e. "0" is not in gold)
                 for gold_head, gold_dep in gold.items():
                     fn[gold_dep] += 1
         else:
@@ -201,25 +202,45 @@ def evaluate_parser_labelled(args):
                     fn[gold_dep] += 1
                     fp[pred_dep] += 1
 
-        # If there were more than 1 expected edges in the gold data, there necessarily are false negatives because
-        # the tree parser can only detect one edge per token
-        # TODO: only if we evaluate as if it were a graph parser!
-        # fn += (len(gold) - 1)
-    for label in tp.keys():
-        print("Label:", label)
-        print("TP", tp[label])
-        print("FP", fp[label])
-        print("FN", fn[label])
-        print("Recall", (tp[label]/(tp[label]+fn[label])))
-        print("Precision", (tp[label]/(tp[label]+fp[label])))
-        print("F1", (tp[label]/(tp[label]+0.5*(fp[label]+fn[label]))))
-        print("-"*15)
-    for label in tp.keys():
-        print(label, tp[label]+fn[label], tp[label], tp[label]/(tp[label]+fn[label]), sep="\t")
+    # for label in tp.keys():
+    #     print("Label:", label)
+    #     print("TP", tp[label])
+    #     print("FP", fp[label])
+    #     print("FN", fn[label])
+    #     print("Recall", (tp[label]/(tp[label]+fn[label])))
+    #     print("Precision", (tp[label]/(tp[label]+fp[label])))
+    #     print("F1", (tp[label]/(tp[label]+0.5*(fp[label]+fn[label]))))
+    #     print("-"*15)
+
+    # DEBUG - some labels were never predicted by model (likely errors in data)
+    # fn_minus_tp = set(fn.keys()).difference(set(tp.keys()))
+    # print("In FP but not in TP:", set(fp.keys()).difference(set(tp.keys())))
+    # print("In FN but not in TP:", set(fn.keys()).difference(set(tp.keys())))
+    # print("In FN but not in FP:", set(fn.keys()).difference(set(fp.keys())))
+
+    header = ["Label", "TP", "FP", "FN", "Recall", "Precision", "F1"]
+    print('{0:<10} {1:>5} {2:>5} {3:>5} {4:<9} {5:<9} {6:<9}'.format(*header))
+    for label in sorted(tp.keys()):
+        output = label, tp[label], fp[label], fn[label], (tp[label]/(tp[label]+fn[label])), (tp[label]/
+            (tp[label]+fp[label])), (tp[label]/(tp[label]+0.5*(fp[label]+fn[label])))
+        print('{0:<10} {1:>5} {2:>5} {3:>5} {4:<9.4} {5:<9.4} {6:<9.4}'.format(*output))
+    
+    # debug
+    # for label in fn_minus_tp:
+    #     output = label, tp[label], fp[label], fn[label]
+    #     print('{0:<10} {1:>5} {2:>5} {3:>5}'.format(*output))
+    
+    if args.output_file:
+        with open(args.output_file, "w", encoding="utf-8") as o:
+            tsv_writer = csv.writer(o, delimiter='\t')
+            tsv_writer.writerow(header)
+            for label in sorted(tp.keys()):
+                output = label, tp[label], fp[label], fn[label], (tp[label]/(tp[label]+fn[label])), (tp[label]/
+                    (tp[label]+fp[label])), (tp[label]/(tp[label]+0.5*(fp[label]+fn[label])))
+                tsv_writer.writerow(output)
+
 
 def execute_eval(args):
-    # TODO add writing to file option
-    # Print feedback to console
     logging.info(
         "Evaluating " + args.pred_file + "\nwith respect to " + args.gold_file)
 
@@ -236,10 +257,13 @@ if __name__ == "__main__":
                             help="""Prediction file in json format. Output of AllenNLP parser.""")
     arg_parser.add_argument("-g", "--gold", dest="gold_file", metavar="GOLD_FILE", required=True,
                             help="""Annotated (gold) file in CoNLL-U format.""")
+    arg_parser.add_argument("-o", "--output", dest="output_file", metavar="OUTPUT_FILE", required=False,
+                            help="""Optional: specify output path to write eval results. Onlu on console when not specified.""")
+
     args = arg_parser.parse_args()
 
     args.debug = False
-    
+
     #########################
     #### Start execution ####
     #########################

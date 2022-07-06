@@ -197,6 +197,7 @@ def parsercolumns2conllu(outfile, tokens, tags, heads, deps, pos_tags=None, file
                     + "\t_\t_"
                 )
                 o.write("\n")
+        o.write("\n")
 
 def execute_tagger2c(args):
     """
@@ -295,7 +296,7 @@ if __name__ == "__main__":
         const=True,
         default=False,
         action="store_const",
-        help="""When specified, read multiple recipes in one document. Implemented only for mode tagger. TODO: Implement for both""",
+        help="""When specified, read multiple recipes in one document.""",
     )
     args = arg_parser.parse_args()
 
