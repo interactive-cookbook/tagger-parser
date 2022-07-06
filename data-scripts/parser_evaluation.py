@@ -258,7 +258,7 @@ if __name__ == "__main__":
     arg_parser.add_argument("-g", "--gold", dest="gold_file", metavar="GOLD_FILE", required=True,
                             help="""Annotated (gold) file in CoNLL-U format.""")
     arg_parser.add_argument("-o", "--output", dest="output_file", metavar="OUTPUT_FILE", required=False,
-                            help="""Optional: specify output path to write eval results. Onlu on console when not specified.""")
+                            help="""Optional: specify output path to write eval results. Print on console only when not specified.""")
 
     args = arg_parser.parse_args()
 

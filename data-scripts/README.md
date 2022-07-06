@@ -6,20 +6,20 @@ This folder regroups files used in order to convert the format of input/output d
 It takes the following arguments:
 - `-m [mode]` where `[mode]` can be either `tagger` or `parser`.
 - `-p [pred_file]' where `[pred_file]` is the model output from the tagger or parser, in the original `.json` format.
-- `-o [ouput_file]` where `[ouput_file]` is where the generated CoNLL-U is to be saved. Defaults to `<pred_file>.conllu` if not specified.
+- `-o [output_file]` where `[ouput_file]` is where the generated CoNLL-U is to be saved. Defaults to `<pred_file>.conllu` if not specified.
 - `--multi` should be additionally specified when and only when more than one recipes are included in a single json file.
 ### `error_analysis.py`: Creates files for manual error analysis.
 It takes the following arguments:
 - `-m [mode]` where `[mode]` can be either `tagger` or `parser`.
 - `-p [pred_file]` where `[pred_file]` is the model prediction from the tagger or parser, in the original `.json` format.
 - `-g [gold_file]` where `[gold_file]` is the gold file, against which the prediction is to be compared.
-- `-o [ouput_file]` where `[ouput_file]` is where the generated TSV file will be saved. Defaults to `<pred_file>.tsv` if not specified.
+- `-o [output_file]` where `[ouput_file]` is where the generated TSV file will be saved. Defaults to `<pred_file>.tsv` if not specified.
 - `-f [format]` where the gold file format can be optionally specified (otherwise it is inferred from file extension). Both `conllu` and `conll03` are allowed for the tagger, but only `conllu` is allowed for the parser.
 ### `parser_evaluation.py`: Performs labeled evaluation on parser outputs.
 It takes the following arguments:
 - `-p [pred_file]` where `[pred_file]` is the model prediction from the tagger or parser, in the original `.json` format.
 - `-g [gold_file]` where `[gold_file]` is the gold file, against which the prediction is to be evaluated.
-- `-o [ouput_file]` where `[ouput_file]` is where the evaluation results can be optionally saved as a `.tsv` file in addition to console output.
+- `-o [output_file]` where `[ouput_file]` is where the evaluation results can be optionally saved as a `.tsv` file in addition to console output.
 
 ## Others
 

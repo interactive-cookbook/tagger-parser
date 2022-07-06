@@ -273,9 +273,9 @@ if __name__ == "__main__":
 
     # file format detection
     if args.format == None:
-        if str(args.pred_file).endswith(".conll03"):
+        if str(args.gold_file).endswith(".conll03"):
             args.format = "conll03"
-        elif  str(args.pred_file).endswith(".conllu"):
+        elif  str(args.gold_file).endswith(".conllu"):
             args.format = "conllu"
         else:
             raise RuntimeError(
