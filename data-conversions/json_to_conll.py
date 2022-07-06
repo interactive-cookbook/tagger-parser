@@ -272,6 +272,7 @@ if __name__ == "__main__":
         "-m",
         "--mode",
         dest="mode",
+        choices=['tagger', 'parser'],
         required=True,
         help="""Specify mode as described above. Choose one of the following: {tagger, parser}.""",
     )
