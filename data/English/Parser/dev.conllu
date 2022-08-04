@@ -18,7 +18,7 @@
 18	.	_	.	O	_	0	root	_	_
 19	Meanwhile	_	RR	O	_	0	root	_	_
 20	,	_	,	O	_	0	root	_	_
-21	add	_	VV0	B-Ac	_	29	d	[(35, 'f-eq')]
+21	add	_	VV0	B-Ac	_	29	d	[(35, 'f-eq')]	_
 22	the	_	AT	O	_	0	root	_	_
 23	carrots	_	NN2	B-F	_	21	t	_	_
 24	to	_	II	O	_	0	root	_	_
@@ -39,7 +39,7 @@
 39	the	_	AT	I-Ac	_	0	root	_	_
 40	boil	_	NN1	I-Ac	_	0	root	_	_
 41	and	_	CC	O	_	0	root	_	_
-42	cook	_	VV0	B-Ac	_	111	f-part-of	[(115, 'f-part-of')]
+42	cook	_	VV0	B-Ac	_	111	f-part-of	[(115, 'f-part-of'), (118, 'a-eq')]	_
 43	till	_	NN1	O	_	0	root	_	_
 44	tender	_	NN1	B-Sf	_	42	v-tm	_	_
 45	.	_	.	O	_	0	root	_	_
@@ -89,7 +89,7 @@
 89	stir	_	VV0	B-Ac	_	92	d	_	_
 90	well	_	RP	O	_	0	root	_	_
 91	.	_	.	O	_	0	root	_	_
-92	Sprinkle	_	VV0	B-Ac	_	97	t	[(105, 'f-part-of')]
+92	Sprinkle	_	VV0	B-Ac	_	97	t	[(105, 'f-part-of')]	_
 93	over	_	II	O	_	0	root	_	_
 94	the	_	AT	O	_	0	root	_	_
 95	flour	_	NN1	B-F	_	92	t	_	_
@@ -146,7 +146,7 @@
 146	.	_	.	O	_	0	root	_	_
 147	Drain	_	VV0	B-Ac	_	151	t	_	_
 148	the	_	AT	O	_	0	root	_	_
-149	potatoes	_	NN2	B-F	_	147	t	[(174, 'f-eq')]
+149	potatoes	_	NN2	B-F	_	147	t	[(174, 'f-eq')]	_
 150	and	_	CC	O	_	0	root	_	_
 151	mash	_	VV0	B-Ac	_	173	a-eq	_	_
 152	with	_	IW	O	_	0	root	_	_
@@ -179,7 +179,7 @@
 179	a	_	AT1	O	_	0	root	_	_
 180	fork	_	NN1	B-T	_	176	t-comp	_	_
 181	.	_	.	O	_	0	root	_	_
-182	Sprinkle	_	VV0	B-Ac	_	188	t	[(207, 'f-part-of')]
+182	Sprinkle	_	VV0	B-Ac	_	188	t	[(207, 'f-part-of')]	_
 183	over	_	II	O	_	0	root	_	_
 184	the	_	AT	O	_	0	root	_	_
 185	grated	_	VVN	B-Ac	_	182	t	_	_
@@ -253,14 +253,14 @@
 41	to	_	II	O	_	0	root	_	_
 42	a	_	AT1	O	_	0	root	_	_
 43	large	_	JJ	B-St	_	44	t	_	_
-44	bowl	_	NN1	B-T	_	34	d	[(129, 't-eq')]
+44	bowl	_	NN1	B-T	_	34	d	[(129, 't-eq')]	_
 45	.	_	.	O	_	0	root	_	_
 46	Set	_	VV0	B-Ac	_	125	f-eq	_	_
 47	aside	_	RL	I-Ac	_	0	root	_	_
 48	.	_	.	O	_	0	root	_	_
 49	Whiz	_	VV0	B-Ac	_	65	t	_	_
 50	the	_	AT	O	_	0	root	_	_
-51	tomatoes	_	NN2	B-F	_	49	t	[(55, 'f-part-of')]
+51	tomatoes	_	NN2	B-F	_	49	t	[(55, 'f-part-of')]	_
 52	,	_	,	O	_	0	root	_	_
 53	with	_	IW	O	_	0	root	_	_
 54	their	_	APP$	O	_	0	root	_	_
@@ -374,7 +374,7 @@
 162	.	_	.	O	_	0	root	_	_
 163	Cook	_	NP1	B-Ac	_	181	t	_	_
 164	the	_	AT	O	_	0	root	_	_
-165	meatballs	_	NN2	B-F	_	163	t	[(178, 'f-part-of')]
+165	meatballs	_	NN2	B-F	_	163	t	[(178, 'f-part-of')]	_
 166	,	_	,	O	_	0	root	_	_
 167	in	_	II	O	_	0	root	_	_
 168	batches	_	NN2	O	_	0	root	_	_
@@ -405,7 +405,7 @@
 193	.	_	.	O	_	0	root	_	_
 194	Cover	_	VV0	B-Ac	_	196	t	_	_
 195	and	_	CC	O	_	0	root	_	_
-196	cook	_	VV0	B-Ac	_	226	f-part-of	[(236, 'f-part-of')]
+196	cook	_	VV0	B-Ac	_	226	f-part-of	[(236, 'f-part-of'), (239, 'f-part-of')]	_
 197	,	_	,	O	_	0	root	_	_
 198	stirring	_	VVG	B-Ac	_	196	o	_	_
 199	occasionally	_	RR	O	_	0	root	_	_
@@ -524,7 +524,7 @@
 44	and	_	CC	O	_	0	root	_	_
 45	salt	_	NN1	B-F	_	39	t	_	_
 46	.	_	.	O	_	0	root	_	_
-47	Add	_	VV0	B-Ac	_	53	t	[(55, 'f-part-of')]
+47	Add	_	VV0	B-Ac	_	53	t	[(55, 'f-part-of')]	_
 48	egg	_	NN1	B-F	_	47	t	_	_
 49	mixture	_	NN1	I-F	_	0	root	_	_
 50	to	_	TO	O	_	0	root	_	_
@@ -586,7 +586,7 @@
 23	medium-high	_	JJ	B-St	_	24	o	_	_
 24	heat	_	NN1	B-T	_	19	t-comp	_	_
 25	.	_	.	O	_	0	root	_	_
-26	Stir	_	VV0	B-Ac	_	33	t	[(40, 'f-part-of')]
+26	Stir	_	VV0	B-Ac	_	33	t	[(40, 'f-part-of'), (45, 'f-part-of')]	_
 27	in	_	II	O	_	0	root	_	_
 28	the	_	AT	O	_	0	root	_	_
 29	rice	_	NN1	B-F	_	26	t	_	_
@@ -600,7 +600,7 @@
 37	,	_	,	O	_	0	root	_	_
 38	until	_	ICS	O	_	0	root	_	_
 39	the	_	AT	O	_	0	root	_	_
-40	rice	_	NN1	B-F	_	41	a	[(47, 'a')]
+40	rice	_	NN1	B-F	_	41	a	[(47, 'a')]	_
 41	begins	_	VVZ	B-Af	_	33	v-tm	_	_
 42	to	_	TO	I-Af	_	0	root	_	_
 43	absorb	_	VV0	I-Af	_	0	root	_	_
@@ -633,7 +633,7 @@
 70	Cover	_	VV0	B-Ac	_	74	t-part-of	_	_
 71	immediately	_	RR	O	_	0	root	_	_
 72	,	_	,	O	_	0	root	_	_
-73	reduce	_	VV0	B-Ac	_	79	t	[(88, 'f-part-of')]
+73	reduce	_	VV0	B-Ac	_	79	t	[(88, 'f-part-of')]	_
 74	heat	_	NN1	B-T	_	73	t	_	_
 75	to	_	II	O	_	0	root	_	_
 76	low	_	JJ	B-St	_	73	d	_	_
@@ -669,7 +669,7 @@
 106	.	_	.	O	_	0	root	_	_
 
 1	Preheat	_	VV0	B-Ac	_	117	a-eq	_	_
-2	oven	_	NN1	B-T	_	1	t	[(118, 't-eq')]
+2	oven	_	NN1	B-T	_	1	t	[(118, 't-eq')]	_
 3	to	_	II	O	_	0	root	_	_
 4	180	_	MC	B-St	_	1	o	_	_
 5	C	_	ZZ1	I-St	_	0	root	_	_
@@ -688,7 +688,7 @@
 18	.	_	.	O	_	0	root	_	_
 19	Reserve	_	VV0	B-Ac	_	90	a-eq	_	_
 20	125g	_	NNU	B-Q	_	21	o	_	_
-21	sponge	_	NN1	B-F	_	19	t	[(92, 'f-eq')]
+21	sponge	_	NN1	B-F	_	19	t	[(92, 'f-eq')]	_
 22	cake	_	NN1	I-F	_	0	root	_	_
 23	mix	_	NN1	I-F	_	0	root	_	_
 24	.	_	.	O	_	0	root	_	_
@@ -795,7 +795,7 @@
 
 1	Preheat	_	VV0	B-Ac	_	66	a-eq	_	_
 2	the	_	AT	O	_	0	root	_	_
-3	oven	_	NN1	B-T	_	1	t	[(67, 't-eq')]
+3	oven	_	NN1	B-T	_	1	t	[(67, 't-eq')]	_
 4	to	_	II	O	_	0	root	_	_
 5	200	_	MC	B-St	_	1	t-comp	_	_
 6	C	_	ZZ1	I-St	_	0	root	_	_
@@ -809,7 +809,7 @@
 14	baking	_	NN1	B-T	_	17	d	_	_
 15	dish	_	NN1	I-T	_	0	root	_	_
 16	,	_	,	O	_	0	root	_	_
-17	combine	_	VV0	B-Ac	_	48	t-eq	[(56, 'f-part-of')]
+17	combine	_	VV0	B-Ac	_	48	t-eq	[(56, 'f-part-of')]	_
 18	the	_	AT	O	_	0	root	_	_
 19	olive	_	JJ	B-F	_	17	t	_	_
 20	oil	_	NN1	I-F	_	0	root	_	_
@@ -843,14 +843,14 @@
 48	baking	_	NN1	B-T	_	44	d	_	_
 49	dish	_	NN1	I-T	_	0	root	_	_
 50	and	_	CC	O	_	0	root	_	_
-51	turn	_	VV0	B-Ac	_	58	t	[(70, 'f-part-of')]
+51	turn	_	VV0	B-Ac	_	58	t	[(70, 'f-part-of')]	_
 52	to	_	TO	I-Ac	_	0	root	_	_
 53	coat	_	VV0	I-Ac	_	0	root	_	_
 54	with	_	IW	O	_	0	root	_	_
 55	the	_	AT	O	_	0	root	_	_
 56	seasonings	_	NN2	B-F	_	51	f-comp	_	_
 57	.	_	.	O	_	0	root	_	_
-58	Bake	_	VV0	B-Ac	_	80	f-part-of	[(81, 'a-eq')]
+58	Bake	_	VV0	B-Ac	_	80	f-part-of	[(81, 'a-eq'), (127, 'f-eq')]	_
 59	for	_	IF	O	_	0	root	_	_
 60	10	_	MC	B-D	_	58	o	_	_
 61	to	_	II	I-D	_	0	root	_	_
@@ -964,7 +964,7 @@
 28	water	_	NN1	B-F	_	26	t	_	_
 29	from	_	II	O	_	0	root	_	_
 30	the	_	AT	O	_	0	root	_	_
-31	tofu	_	NN2	B-F	_	26	s	[(28, 'f-part-of')]
+31	tofu	_	NN2	B-F	_	26	s	[(28, 'f-part-of')]	_
 32	very	_	RG	O	_	0	root	_	_
 33	well	_	NN1	O	_	0	root	_	_
 34	.	_	.	O	_	0	root	_	_
@@ -999,7 +999,7 @@
 63	.	_	.	O	_	0	root	_	_
 64	Heat	_	VV0	B-Ac	_	91	a-eq	_	_
 65	a	_	AT1	O	_	0	root	_	_
-66	frying	_	VVG	B-T	_	64	d	[(92, 't-eq')]
+66	frying	_	VVG	B-T	_	64	d	[(92, 't-eq')]	_
 67	pan	_	NN1	I-T	_	0	root	_	_
 68	over	_	II	O	_	0	root	_	_
 69	medium	_	JJ	B-St	_	70	o	_	_
@@ -1025,7 +1025,7 @@
 89	to	_	II	O	_	0	root	_	_
 90	the	_	AT	O	_	0	root	_	_
 91	heated	_	VVN	B-Ac	_	86	d	_	_
-92	frying	_	VVG	B-T	_	91	t	[(98, 't-part-of')]
+92	frying	_	VVG	B-T	_	91	t	[(98, 't-part-of')]	_
 93	pan	_	NN1	I-T	_	0	root	_	_
 94	,	_	,	O	_	0	root	_	_
 95	and	_	CC	O	_	0	root	_	_
@@ -1134,7 +1134,7 @@
 198	.	_	.	O	_	0	root	_	_
 
 1	Preheat	_	VV0	B-Ac	_	57	a-eq	_	_
-2	oven	_	NN1	B-T	_	1	t	[(58, 't-eq')]
+2	oven	_	NN1	B-T	_	1	t	[(58, 't-eq')]	_
 3	to	_	II	O	_	0	root	_	_
 4	180	_	MC	B-St	_	1	o	_	_
 5	degrees	_	NN2	I-St	_	0	root	_	_
@@ -1180,7 +1180,7 @@
 45	a	_	AT1	O	_	0	root	_	_
 46	loaf	_	NN1	B-Sf	_	43	o	_	_
 47	.	_	.	O	_	0	root	_	_
-48	Place	_	VV0	B-Ac	_	55	t	[(64, 'f-part-of')]
+48	Place	_	VV0	B-Ac	_	55	t	[(64, 'f-part-of')]	_
 49	on	_	II	O	_	0	root	_	_
 50	top	_	NN	B-F	_	48	d	_	_
 51	of	_	IO	O	_	0	root	_	_
@@ -1203,7 +1203,7 @@
 
 1	Preheat	_	VV0	B-Ac	_	95	a-eq	_	_
 2	the	_	AT	O	_	0	root	_	_
-3	oven	_	NN1	B-T	_	1	t	[(96, 't-eq')]
+3	oven	_	NN1	B-T	_	1	t	[(96, 't-eq')]	_
 4	to	_	II	O	_	0	root	_	_
 5	200	_	MC	B-St	_	1	o	_	_
 6	C	_	ZZ1	I-St	_	0	root	_	_
@@ -1287,7 +1287,7 @@
 84	baking	_	NN1	B-T	_	80	d	_	_
 85	tray	_	NN1	I-T	_	0	root	_	_
 86	and	_	CC	O	_	0	root	_	_
-87	drizzle	_	VV0	B-Ac	_	92	t	[(103, 'f-part-of')]
+87	drizzle	_	VV0	B-Ac	_	92	t	[(103, 'f-part-of'), (108, 'f-part-of')]	_
 88	lightly	_	RR	O	_	0	root	_	_
 89	with	_	IW	O	_	0	root	_	_
 90	oil	_	NN1	B-F	_	87	t	_	_
@@ -1303,7 +1303,7 @@
 100	crispy	_	NN1	B-Sf	_	92	v-tm	_	_
 101	on	_	II	O	_	0	root	_	_
 102	the	_	AT	O	_	0	root	_	_
-103	outside	_	JJ	B-F	_	98	a	[(100, 'a')]
+103	outside	_	JJ	B-F	_	98	a	[(100, 'a')]	_
 104	and	_	CC	O	_	0	root	_	_
 105	fluffy	_	JJ	B-Sf	_	92	v-tm	_	_
 106	in	_	II	O	_	0	root	_	_
@@ -1406,7 +1406,7 @@
 56	.	_	.	O	_	0	root	_	_
 
 1	Preheat	_	VV0	B-Ac	_	74	a-eq	_	_
-2	oven	_	NN1	B-T	_	1	t	[(75, 't-eq')]
+2	oven	_	NN1	B-T	_	1	t	[(75, 't-eq')]	_
 3	to	_	II	O	_	0	root	_	_
 4	180	_	MC	B-St	_	1	o	_	_
 5	C	_	ZZ1	I-St	_	0	root	_	_
@@ -1417,7 +1417,7 @@
 10	Grease	_	VV0	B-Ac	_	63	a-eq	_	_
 11	a	_	AT1	O	_	0	root	_	_
 12	20x30cm	_	NNU	B-St	_	13	o	_	_
-13	baking	_	NN1	B-T	_	10	t	[(64, 't-eq')]
+13	baking	_	NN1	B-T	_	10	t	[(64, 't-eq')]	_
 14	dish	_	NN1	I-T	_	0	root	_	_
 15	.	_	.	O	_	0	root	_	_
 16	In	_	II	O	_	0	root	_	_
@@ -1460,7 +1460,7 @@
 53	just	_	RR	O	_	0	root	_	_
 54	blended	_	VVN	B-Sf	_	48	v-tm	_	_
 55	.	_	.	O	_	0	root	_	_
-56	Spread	_	VV0	B-Ac	_	66	t	[(79, 'f-part-of')]
+56	Spread	_	VV0	B-Ac	_	66	t	[(79, 'f-part-of')]	_
 57	the	_	AT	O	_	0	root	_	_
 58	brownie	_	NP1	B-F	_	56	t	_	_
 59	mixture	_	NN1	I-F	_	0	root	_	_
@@ -1470,7 +1470,7 @@
 63	prepared	_	VVN	B-Ac	_	56	d	_	_
 64	dish	_	NN1	B-T	_	63	t	_	_
 65	.	_	.	O	_	0	root	_	_
-66	Bake	_	VV0	B-Ac	_	86	t	[(90, 't-part-of')]
+66	Bake	_	VV0	B-Ac	_	86	t	[(90, 't-part-of')]	_
 67	for	_	IF	O	_	0	root	_	_
 68	25	_	MC	B-D	_	66	o	_	_
 69	to	_	II	I-D	_	0	root	_	_
@@ -1490,7 +1490,7 @@
 83	lightly	_	RR	O	_	0	root	_	_
 84	touched	_	VVN	B-Ac	_	80	a	_	_
 85	.	_	.	O	_	0	root	_	_
-86	Cool	_	VV0	B-Ac	_	116	f-eq	[(115, 'a-eq')]
+86	Cool	_	VV0	B-Ac	_	116	f-eq	[(115, 'a-eq')]	_
 87	completely	_	RR	O	_	0	root	_	_
 88	in	_	II	O	_	0	root	_	_
 89	the	_	AT	O	_	0	root	_	_
@@ -1679,7 +1679,7 @@
 46	large	_	JJ	B-St	_	47	o	_	_
 47	bowl	_	NN1	B-T	_	35	d	_	_
 48	.	_	.	O	_	0	root	_	_
-49	Add	_	VV0	B-Ac	_	53	t	[(60, 'd')]
+49	Add	_	VV0	B-Ac	_	53	t	[(60, 'd')]	_
 50	milk	_	NN1	B-F	_	49	t	_	_
 51	mixture	_	NN1	I-F	_	0	root	_	_
 52	and	_	CC	O	_	0	root	_	_
@@ -1696,7 +1696,7 @@
 63	if	_	CS	O	_	0	root	_	_
 64	necessary	_	JJ	O	_	0	root	_	_
 65	.	_	.	O	_	0	root	_	_
-66	Turn	_	VV0	B-Ac	_	73	t	[(76, 'f-eq')]
+66	Turn	_	VV0	B-Ac	_	73	t	[(76, 'f-eq')]	_
 67	onto	_	II	O	_	0	root	_	_
 68	a	_	AT1	O	_	0	root	_	_
 69	lightly	_	RR	O	_	0	root	_	_
@@ -1717,12 +1717,12 @@
 84	2cm	_	NP1	B-Sf	_	80	o	_	_
 85	thick	_	JJ	I-Sf	_	0	root	_	_
 86	.	_	.	O	_	0	root	_	_
-87	Cut	_	VV0	B-Ac	_	92	t	[(99, 'f-part-of')]
+87	Cut	_	VV0	B-Ac	_	92	t	[(99, 'f-part-of')]	_
 88	scones	_	NN2	B-F	_	87	t	_	_
 89	from	_	II	O	_	0	root	_	_
 90	dough	_	NN1	B-F	_	87	s	_	_
 91	and	_	CC	O	_	0	root	_	_
-92	place	_	VV0	B-Ac	_	95	f-part-of	[(96, 'd')]
+92	place	_	VV0	B-Ac	_	95	f-part-of	[(96, 'd')]	_
 93	onto	_	II	O	_	0	root	_	_
 94	tray	_	NN1	B-T	_	92	d	_	_
 95	flat-side	_	NN1	B-F	_	96	t	_	_
@@ -1842,7 +1842,7 @@
 72	brown	_	JJ	I-Sf	_	0	root	_	_
 73	.	_	.	O	_	0	root	_	_
 
-1	Toss	_	VV0	B-Ac	_	18	f-eq	[(21, 'f-part-of')]
+1	Toss	_	VV0	B-Ac	_	18	f-eq	[(21, 'f-part-of')]	_
 2	the	_	AT	O	_	0	root	_	_
 3	cabbage	_	NN1	B-F	_	1	t	_	_
 4	and	_	CC	O	_	0	root	_	_
@@ -1852,7 +1852,7 @@
 8	together	_	RR	O	_	0	root	_	_
 9	in	_	II	O	_	0	root	_	_
 10	a	_	AT1	O	_	0	root	_	_
-11	colander	_	NN1	B-T	_	12	t	[(64, 't-eq')]
+11	colander	_	NN1	B-T	_	12	t	[(64, 't-eq')]	_
 12	set	_	VVN	B-Ac	_	1	d	_	_
 13	over	_	II	O	_	0	root	_	_
 14	medium	_	JJ	B-St	_	15	o	_	_
@@ -1860,7 +1860,7 @@
 16	.	_	.	O	_	0	root	_	_
 17	Let	_	VV0	B-Ac	_	19	a	_	_
 18	it	_	PPH1	B-F	_	17	t	_	_
-19	stand	_	VV0	B-Af	_	37	f-part-of	[(39, 'f-part-of')]
+19	stand	_	VV0	B-Af	_	37	f-part-of	[(39, 'f-part-of')]	_
 20	until	_	ICS	O	_	0	root	_	_
 21	cabbage	_	NN1	B-F	_	22	a	_	_
 22	wilts	_	VVZ	B-Af	_	17	v-tm	_	_
@@ -1883,7 +1883,7 @@
 39	carrots	_	NN2	B-F	_	34	t	_	_
 40	into	_	II	O	_	0	root	_	_
 41	the	_	AT	O	_	0	root	_	_
-42	bowl	_	NN1	B-T	_	34	d	[(104, 't-eq')]
+42	bowl	_	NN1	B-T	_	34	d	[(104, 't-eq')]	_
 43	.	_	.	O	_	0	root	_	_
 44	Rinse	_	VV0	B-Ac	_	60	f-eq	_	_
 45	thoroughly	_	RR	I-Ac	_	0	root	_	_
@@ -1918,7 +1918,7 @@
 74	to	_	TO	B-Ac2	_	77	t	_	_
 75	drain	_	VV0	I-Ac2	_	0	root	_	_
 76	.	_	.	O	_	0	root	_	_
-77	Pat	_	NP1	B-Ac	_	98	f-part-of	[(100, 'f-part-of')]
+77	Pat	_	NP1	B-Ac	_	98	f-part-of	[(100, 'f-part-of')]	_
 78	dry	_	JJ	B-Sf	_	77	o	_	_
 79	with	_	IW	O	_	0	root	_	_
 80	kitchen	_	NN1	B-T	_	77	t-comp	_	_
@@ -2024,14 +2024,14 @@
 28	baking	_	NN1	B-T	_	22	d	_	_
 29	tray	_	NN1	I-T	_	0	root	_	_
 30	and	_	CC	O	_	0	root	_	_
-31	drizzle	_	VV0	B-Ac	_	38	t	[(44, 'f-eq')]
+31	drizzle	_	VV0	B-Ac	_	38	t	[(44, 'f-eq')]	_
 32	with	_	IW	O	_	0	root	_	_
 33	1	_	MC	B-Q	_	35	o	_	_
 34	tablespoon	_	NN1	I-Q	_	0	root	_	_
 35	olive	_	NN1	B-F	_	31	f-comp	_	_
 36	oil	_	NN1	I-F	_	0	root	_	_
 37	.	_	.	O	_	0	root	_	_
-38	Bake	_	VV0	B-Ac	_	51	t-eq	[(48, 't')]
+38	Bake	_	VV0	B-Ac	_	51	t-eq	[(48, 't')]	_
 39	for	_	IF	O	_	0	root	_	_
 40	1	_	MC	B-D	_	38	o	_	_
 41	hour	_	NNT1	I-D	_	0	root	_	_
@@ -2074,7 +2074,7 @@
 78	the	_	AT	O	_	0	root	_	_
 79	meantime	_	NN1	O	_	0	root	_	_
 80	,	_	,	O	_	0	root	_	_
-81	cook	_	VV0	B-Ac	_	83	t	[(87, 'a')]
+81	cook	_	VV0	B-Ac	_	83	t	[(87, 'a')]	_
 82	and	_	CC	O	_	0	root	_	_
 83	stir	_	VV0	B-Ac	_	89	d	_	_
 84	the	_	AT	O	_	0	root	_	_
@@ -2148,7 +2148,7 @@
 10	rice	_	NN1	I-F	_	0	root	_	_
 11	,	_	,	O	_	0	root	_	_
 12	then	_	RR	O	_	0	root	_	_
-13	combine	_	VV0	B-Ac	_	23	t	[(31, 't')]
+13	combine	_	VV0	B-Ac	_	23	t	[(31, 't')]	_
 14	with	_	IW	O	_	0	root	_	_
 15	sugar	_	NN1	B-F	_	13	t	_	_
 16	and	_	CC	O	_	0	root	_	_
@@ -2174,11 +2174,11 @@
 36	to	_	II	O	_	0	root	_	_
 37	medium-low	_	JJ	B-St	_	34	o	_	_
 38	.	_	.	O	_	0	root	_	_
-39	Cover	_	VV0	B-Ac	_	41	t	[(43, 'f-part-of')]
+39	Cover	_	VV0	B-Ac	_	41	t	[(43, 'f-part-of'), (49, 't')]	_
 40	and	_	CC	O	_	0	root	_	_
 41	cook	_	VV0	B-Ac	_	56	d	_	_
 42	until	_	ICS	O	_	0	root	_	_
-43	rice	_	NN1	B-F	_	45	a	[(47, 'a')]
+43	rice	_	NN1	B-F	_	45	a	[(47, 'a')]	_
 44	is	_	VBZ	O	_	0	root	_	_
 45	tender	_	JJ	B-Sf	_	41	v-tm	_	_
 46	and	_	CC	O	_	0	root	_	_
@@ -2204,7 +2204,7 @@
 66	.	_	.	O	_	0	root	_	_
 
 1	Preheat	_	VV0	B-Ac	_	77	a-eq	_	_
-2	oven	_	NN1	B-T	_	1	t-comp	[(78, 't-eq')]
+2	oven	_	NN1	B-T	_	1	t-comp	[(78, 't-eq')]	_
 3	to	_	II	O	_	0	root	_	_
 4	160	_	MC	B-St	_	1	o	_	_
 5	C	_	ZZ1	I-St	_	0	root	_	_
@@ -2240,7 +2240,7 @@
 35	5	_	MC	B-D	_	33	o	_	_
 36	minutes	_	NNT2	I-D	_	0	root	_	_
 37	,	_	,	O	_	0	root	_	_
-38	adding	_	VVG	B-Ac	_	41	a	[(45, 'f-eq')]
+38	adding	_	VVG	B-Ac	_	41	a	[(45, 'f-eq')]	_
 39	enough	_	DD	B-Q	_	40	o	_	_
 40	flour	_	NN1	B-F	_	38	t	_	_
 41	to	_	TO	B-Ac2	_	47	t	_	_
@@ -2296,7 +2296,7 @@
 6	tins	_	NN2	I-T	_	0	root	_	_
 7	.	_	.	O	_	0	root	_	_
 8	Preheat	_	VV0	B-Ac	_	119	t-eq	_	_
-9	oven	_	NN1	B-T	_	8	t	[(120, 't-eq')]
+9	oven	_	NN1	B-T	_	8	t	[(120, 't-eq')]	_
 10	to	_	II	O	_	0	root	_	_
 11	180	_	MC	B-St	_	8	t-comp	_	_
 12	C	_	ZZ1	I-St	_	0	root	_	_
@@ -2393,7 +2393,7 @@
 103	cake	_	NN1	B-F	_	99	d	_	_
 104	mixture	_	NN1	I-F	_	0	root	_	_
 105	.	_	.	O	_	0	root	_	_
-106	Pour	_	VV0	B-Ac	_	116	t	[(135, 'f-eq')]
+106	Pour	_	VV0	B-Ac	_	116	t	[(135, 'f-eq')]	_
 107	the	_	AT	O	_	0	root	_	_
 108	mixture	_	NN1	B-F	_	106	t	_	_
 109	evenly	_	RR	O	_	0	root	_	_
@@ -2403,7 +2403,7 @@
 113	cake	_	NN1	B-T	_	106	d	_	_
 114	tins	_	NN2	I-T	_	0	root	_	_
 115	.	_	.	O	_	0	root	_	_
-116	Bake	_	VV0	B-Ac	_	140	t	[(145, 'a')]
+116	Bake	_	VV0	B-Ac	_	140	t	[(145, 'a')]	_
 117	in	_	II	O	_	0	root	_	_
 118	the	_	AT	O	_	0	root	_	_
 119	preheated	_	JJ	B-Ac	_	116	t-comp	_	_
@@ -2454,7 +2454,7 @@
 164	and	_	CC	O	_	0	root	_	_
 165	flour	_	NN1	B-F	_	161	t	_	_
 166	.	_	.	O	_	0	root	_	_
-167	Cook	_	NP1	B-Ac	_	172	t	[(176, 'f-eq')]
+167	Cook	_	NP1	B-Ac	_	172	t	[(176, 'f-eq')]	_
 168	over	_	II	O	_	0	root	_	_
 169	low	_	JJ	B-T	_	167	t-comp	_	_
 170	heat	_	NN1	I-T	_	0	root	_	_
@@ -2469,7 +2469,7 @@
 179	Set	_	VV0	B-Ac	_	182	a	_	_
 180	aside	_	RL	I-Ac	_	0	root	_	_
 181	to	_	TO	O	_	0	root	_	_
-182	cool	_	VV0	B-Af	_	205	f-eq	[(204, 'a-eq')]
+182	cool	_	VV0	B-Af	_	205	f-eq	[(204, 'a-eq')]	_
 183	completely	_	RR	O	_	0	root	_	_
 184	.	_	.	O	_	0	root	_	_
 185	Cream	_	VV0	B-Ac	_	201	d	_	_
@@ -2488,7 +2488,7 @@
 198	fluffy	_	JJ	B-Sf	_	185	v-tm	_	_
 199	,	_	,	O	_	0	root	_	_
 200	then	_	RR	O	_	0	root	_	_
-201	stir	_	VV0	B-Ac	_	210	t	[(212, 'f-eq')]
+201	stir	_	VV0	B-Ac	_	210	t	[(212, 'f-eq')]	_
 202	in	_	II	O	_	0	root	_	_
 203	the	_	AT	O	_	0	root	_	_
 204	cooled	_	VVN	B-Ac	_	201	t	_	_
@@ -2517,7 +2517,7 @@
 
 1	Par-boil	_	NN1	B-Ac	_	5	a-eq	_	_
 2	the	_	AT	O	_	0	root	_	_
-3	potatoes	_	NN2	B-F	_	1	t	[(10, 'f-eq')]
+3	potatoes	_	NN2	B-F	_	1	t	[(10, 'f-eq')]	_
 4	by	_	II	O	_	0	root	_	_
 5	adding	_	VVG	B-Ac	_	9	d	_	_
 6	boiling	_	VVG	B-Sf	_	7	o	_	_
@@ -2543,7 +2543,7 @@
 26	Gas	_	NN1	B-St	_	18	t-comp	_	_
 27	9	_	MC	I-St	_	0	root	_	_
 28	.	_	.	O	_	0	root	_	_
-29	Drain	_	VV0	B-Ac	_	33	t	[(41, 'f-part-of')]
+29	Drain	_	VV0	B-Ac	_	33	t	[(41, 'f-part-of')]	_
 30	the	_	AT	O	_	0	root	_	_
 31	potatoes	_	NN2	B-F	_	29	t	_	_
 32	and	_	CC	O	_	0	root	_	_
@@ -2588,7 +2588,7 @@
 71	to	_	TO	O	_	0	root	_	_
 72	coat	_	VV0	B-Ac2	_	74	d	_	_
 73	.	_	.	O	_	0	root	_	_
-74	Sprinkle	_	VV0	B-Ac	_	79	d	[(94, 'a')]
+74	Sprinkle	_	VV0	B-Ac	_	79	d	[(94, 'a'), (96, 'a')]	_
 75	over	_	II	O	_	0	root	_	_
 76	the	_	AT	O	_	0	root	_	_
 77	rosemary	_	NP1	B-F	_	74	t	_	_
@@ -2614,7 +2614,7 @@
 
 1	Melt	_	VV0	B-Ac	_	45	a-eq	_	_
 2	the	_	AT	O	_	0	root	_	_
-3	chocolate	_	NN1	B-F	_	1	t	[(14, 't')]
+3	chocolate	_	NN1	B-F	_	1	t	[(14, 't'), (46, 'f-eq')]	_
 4	flavour	_	NN1	I-F	_	0	root	_	_
 5	cake	_	NN1	I-F	_	0	root	_	_
 6	covering	_	VVG	I-F	_	0	root	_	_
@@ -2673,7 +2673,7 @@
 59	mixture	_	NN1	B-F	_	57	t	_	_
 60	into	_	II	O	_	0	root	_	_
 61	small	_	JJ	B-Sf	_	62	o	_	_
-62	balls	_	NN2	B-F	_	75	f-part-of	[(99, 'f-part-of')]
+62	balls	_	NN2	B-F	_	75	f-part-of	[(99, 'f-part-of')]	_
 63	.	_	.	O	_	0	root	_	_
 64	Sprinkle	_	VV0	B-Ac	_	78	f-eq	_	_
 65	the	_	AT	O	_	0	root	_	_
@@ -2689,7 +2689,7 @@
 75	balls	_	NN2	B-F	_	73	t	_	_
 76	in	_	II	O	_	0	root	_	_
 77	the	_	AT	O	_	0	root	_	_
-78	coverings	_	NN2	B-F	_	73	d	[(87, 'f-eq')]
+78	coverings	_	NN2	B-F	_	73	d	[(87, 'f-eq')]	_
 79	.	_	.	O	_	0	root	_	_
 80	If	_	CS	O	_	0	root	_	_
 81	you	_	PPY	O	_	0	root	_	_
@@ -2754,7 +2754,7 @@
 140	.	_	.	O	_	0	root	_	_
 
 1	Preheat	_	VV0	B-Ac	_	55	a-eq	_	_
-2	oven	_	NN1	B-T	_	1	t	[(56, 't-eq')]
+2	oven	_	NN1	B-T	_	1	t	[(56, 't-eq')]	_
 3	to	_	II	O	_	0	root	_	_
 4	200	_	MC	B-St	_	1	t-comp	_	_
 5	C	_	ZZ1	I-St	_	0	root	_	_
@@ -2927,7 +2927,7 @@
 68	the	_	AT	O	_	0	root	_	_
 69	bread	_	NN1	B-F	_	66	d	_	_
 70	and	_	CC	O	_	0	root	_	_
-71	leave	_	VV0	B-Ac	_	73	a	[(90, 'f-eq')]
+71	leave	_	VV0	B-Ac	_	73	a	[(90, 'f-eq')]	_
 72	to	_	TO	O	_	0	root	_	_
 73	absorb	_	VV0	B-Af	_	78	t	_	_
 74	for	_	IF	O	_	0	root	_	_
@@ -2946,7 +2946,7 @@
 87	,	_	,	O	_	0	root	_	_
 88	until	_	ICS	O	_	0	root	_	_
 89	the	_	AT	O	_	0	root	_	_
-90	pudding	_	NN1	B-F	_	92	a	[(94, 'a')]
+90	pudding	_	NN1	B-F	_	92	a	[(94, 'a')]	_
 91	is	_	VBZ	O	_	0	root	_	_
 92	set	_	VVN	B-Sf	_	78	v-tm	_	_
 93	and	_	CC	O	_	0	root	_	_
@@ -2974,7 +2974,7 @@
 19	baking	_	NN1	B-T	_	11	t-comp	_	_
 20	tray	_	NN1	I-T	_	0	root	_	_
 21	.	_	.	O	_	0	root	_	_
-22	Bake	_	VV0	B-Ac	_	26	t	[(30, 'a')]
+22	Bake	_	VV0	B-Ac	_	26	t	[(30, 'a'), (33, 'a'), (79, 'a-eq')]	_
 23	5	_	MC	B-D	_	22	o	_	_
 24	minutes	_	NNT2	I-D	_	0	root	_	_
 25	,	_	,	O	_	0	root	_	_
@@ -3038,7 +3038,7 @@
 83	.	_	.	O	_	0	root	_	_
 
 1	Preheat	_	VV0	B-Ac	_	46	t-comp	_	_
-2	oven	_	NN1	B-T	_	1	t	[(81, 't-eq')]
+2	oven	_	NN1	B-T	_	1	t	[(81, 't-eq')]	_
 3	to	_	II	O	_	0	root	_	_
 4	190	_	MC	B-St	_	1	o	_	_
 5	C	_	ZZ1	I-St	_	0	root	_	_
@@ -3054,7 +3054,7 @@
 15	remove	_	VV0	B-Ac	_	22	f-eq	_	_
 16	seeds	_	NN2	B-F	_	15	t	_	_
 17	and	_	CC	O	_	0	root	_	_
-18	peel	_	NN1	B-Ac	_	33	f-part-of	[(145, 'f-part-of')]
+18	peel	_	NN1	B-Ac	_	33	f-part-of	[(145, 'f-part-of')]	_
 19	garlic	_	NN1	B-F	_	18	t	_	_
 20	.	_	.	O	_	0	root	_	_
 21	Place	_	NNL1	B-Ac	_	31	d	_	_
@@ -3082,7 +3082,7 @@
 43	over	_	II	O	_	0	root	_	_
 44	peppers	_	NN2	B-F	_	39	d	_	_
 45	.	_	.	O	_	0	root	_	_
-46	Roast	_	VV0	B-Ac	_	75	f-part-of	[(79, 't')]
+46	Roast	_	VV0	B-Ac	_	75	f-part-of	[(79, 't')]	_
 47	for	_	IF	O	_	0	root	_	_
 48	1	_	MC	B-D	_	46	o	_	_
 49	hour	_	NN1	I-D	_	0	root	_	_
@@ -3108,7 +3108,7 @@
 69	,	_	,	O	_	0	root	_	_
 70	cover	_	NN1	B-Ac	_	72	t	_	_
 71	and	_	CC	O	_	0	root	_	_
-72	simmer	_	VV0	B-Ac	_	100	f-part-of	[(103, 'f-part-of')]
+72	simmer	_	VV0	B-Ac	_	100	f-part-of	[(103, 'f-part-of')]	_
 73	.	_	.	O	_	0	root	_	_
 74	When	_	RRQ	O	_	0	root	_	_
 75	peppers	_	NN2	B-F	_	77	a	_	_
@@ -3130,10 +3130,10 @@
 91	to	_	TO	I-Sf	_	0	root	_	_
 92	touch	_	VV0	I-Sf	_	0	root	_	_
 93	,	_	,	O	_	0	root	_	_
-94	peel	_	NN1	B-Ac	_	128	f-part-of	[(143, 'f-part-of')]
+94	peel	_	NN1	B-Ac	_	128	f-part-of	[(143, 'f-part-of')]	_
 95	skin	_	NN1	B-F	_	94	t	_	_
 96	from	_	II	O	_	0	root	_	_
-97	peppers	_	NN2	B-T	_	89	a	[(95, 'f-part-of')]
+97	peppers	_	NN2	B-T	_	89	a	[(95, 'f-part-of'), (94, 't')]	_
 98	.	_	.	O	_	0	root	_	_
 99	Sieve	_	VV0	B-Ac	_	105	t	_	_
 100	fennel	_	NN1	B-F	_	99	t	_	_
@@ -3146,10 +3146,10 @@
 107	the	_	AT	I-Ac	_	0	root	_	_
 108	boil	_	NN1	I-Ac	_	0	root	_	_
 109	.	_	.	O	_	0	root	_	_
-110	Add	_	VV0	B-Ac	_	113	t	[(120, 'f-part-of')]
+110	Add	_	VV0	B-Ac	_	113	t	[(120, 'f-part-of')]	_
 111	thyme	_	NN1	B-F	_	110	t	_	_
 112	and	_	CC	O	_	0	root	_	_
-113	simmer	_	VV0	B-Ac	_	149	f-part-of	[(177, 'f-part-of')]
+113	simmer	_	VV0	B-Ac	_	149	f-part-of	[(177, 'f-part-of')]	_
 114	15	_	MC	B-D	_	113	o	_	_
 115	minutes	_	NNT2	I-D	_	0	root	_	_
 116	,	_	,	O	_	0	root	_	_
@@ -3166,7 +3166,7 @@
 127	each	_	DD1	O	_	0	root	_	_
 128	pepper	_	NN1	B-F	_	122	t	_	_
 129	and	_	CC	O	_	0	root	_	_
-130	dice	_	NN	B-Ac	_	132	t	[(190, 'a-eq')]
+130	dice	_	NN	B-Ac	_	132	t	[(190, 'a-eq')]	_
 131	.	_	.	O	_	0	root	_	_
 132	Set	_	VV0	B-Ac	_	135	a	_	_
 133	aside	_	RL	I-Ac	_	0	root	_	_
@@ -3179,7 +3179,7 @@
 140	,	_	,	O	_	0	root	_	_
 141	process	_	NN1	B-Ac	_	173	a-eq	_	_
 142	remaining	_	VVG	B-Q	_	143	o	_	_
-143	peppers	_	NN2	B-F	_	141	t	[(156, 'f-eq')]
+143	peppers	_	NN2	B-F	_	141	t	[(156, 'f-eq')]	_
 144	,	_	,	O	_	0	root	_	_
 145	garlic	_	NN1	B-F	_	141	t	_	_
 146	and	_	CC	O	_	0	root	_	_
@@ -3218,7 +3218,7 @@
 179	stir	_	VV0	B-Ac	_	182	d	_	_
 180	well	_	RP	O	_	0	root	_	_
 181	.	_	.	O	_	0	root	_	_
-182	Add	_	VV0	B-Ac	_	185	-	[(189, 'd')]
+182	Add	_	VV0	B-Ac	_	185	-	[(189, 'd')]	_
 183	black	_	JJ	B-F	_	182	t	_	_
 184	pepper	_	NN1	I-F	_	0	root	_	_
 185	to	_	TO	B-Ac2	_	0	root	_	_
@@ -3250,7 +3250,7 @@
 
 1	Preheat	_	VV0	B-Ac	_	83	t-eq	_	_
 2	the	_	AT	O	_	0	root	_	_
-3	oven	_	NN1	B-T	_	1	t	[(84, 't-eq')]
+3	oven	_	NN1	B-T	_	1	t	[(84, 't-eq')]	_
 4	to	_	II	O	_	0	root	_	_
 5	180	_	MC	B-St	_	1	o	_	_
 6	C	_	ZZ1	I-St	_	0	root	_	_
@@ -3267,9 +3267,9 @@
 17	cream	_	VV0	B-Ac	_	26	d	_	_
 18	together	_	RR	I-Ac	_	0	root	_	_
 19	the	_	AT	O	_	0	root	_	_
-20	butter	_	NN	B-F	_	17	t	[(24, 'a')]
+20	butter	_	NN	B-F	_	17	t	[(24, 'a')]	_
 21	and	_	CC	O	_	0	root	_	_
-22	sugar	_	NN1	B-F	_	17	t	[(24, 'a')]
+22	sugar	_	NN1	B-F	_	17	t	[(24, 'a')]	_
 23	until	_	ICS	O	_	0	root	_	_
 24	smooth	_	JJ	B-Sf	_	17	v-tm	_	_
 25	.	_	.	O	_	0	root	_	_
@@ -3313,7 +3313,7 @@
 63	chocolate	_	NN1	I-F	_	0	root	_	_
 64	chips	_	NN2	I-F	_	0	root	_	_
 65	.	_	.	O	_	0	root	_	_
-66	Drop	_	VV0	B-Ac	_	75	t	[(87, 'f-eq')]
+66	Drop	_	VV0	B-Ac	_	75	t	[(87, 'f-eq')]	_
 67	by	_	II	O	_	0	root	_	_
 68	rounded	_	VVN	B-Q	_	66	o	_	_
 69	teaspoonfuls	_	NNU2	I-Q	_	0	root	_	_
@@ -3358,4 +3358,3 @@
 108	cool	_	VV0	B-Af	_	0	root	_	_
 109	completely	_	RR	O	_	0	root	_	_
 110	.	_	.	O	_	0	root	_	_
-
