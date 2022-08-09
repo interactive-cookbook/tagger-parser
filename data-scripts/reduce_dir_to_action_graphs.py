@@ -76,14 +76,12 @@ def traverse(root_dir, out_dir):
     Traverse all subdirectories of 'root_dir' and change the tags in all files found. Result files are saved to a potentially new directory out_dir.
     """
     global sequences, reduced_graph
-    if not os.path.exists(out_dir):
-        os.mkdir(out_dir)
 
     for dirName, subdirList, fileList in os.walk(root_dir):
 
         outpath = os.path.join(out_dir,os.path.split(dirName)[1])
         if not os.path.exists(outpath):
-            os.mkdir(outpath)
+            os.makedirs(outpath)
 
         for file in fileList:
             infile = os.path.join(dirName, os.fsdecode(file))
@@ -139,6 +137,7 @@ if __name__ == "__main__":
         help="""Parent dircetory""",
     )
     arg_parser.add_argument(
+        "-o",
         "--out-dir",
         dest="out_dir",
         default="ActionGraphs",

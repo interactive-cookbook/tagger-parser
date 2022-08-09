@@ -184,7 +184,7 @@ def write_to_file(outdirectory, infile, outfile, token2heads, desired):
         os.makedirs(outdirectory)
 
     # Write event graph into CoNLL-U file
-    with open(outdirectory + "/" + outfile, "w", encoding="utf-8") as o:
+    with open(os.path.join(outdirectory , outfile), "w", encoding="utf-8") as o:
         with open(infile, "r", encoding="utf-8") as f:
             for line in f:
                 line = line.split("\t")
@@ -327,7 +327,7 @@ if __name__ == "__main__":
         raise IOError("Please specify a valid mode, i.e. either 'fat' or 'a'.")
 
     if args.out:
-        print(os.path.split(args.out))
+        #print(os.path.split(args.out))
         outdirectory, outfilename = os.path.split(args.out)
         if not outdirectory:
             outdirectory = "."
