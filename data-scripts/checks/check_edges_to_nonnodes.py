@@ -1,5 +1,6 @@
 import os
 import numpy as np
+import argparse
 
 
 def find_edges_to_nonnodes(folder_path: str):
@@ -88,7 +89,18 @@ def evaluate(nodes_information, ids_tokens_with_incoming_edges, ids_labelled_tok
 
 
 if __name__=="__main__":
-    random_sources, random_targets, nonhead_targets = find_edges_to_nonnodes("./ActionGraphs")
+
+    arg_parser = argparse.ArgumentParser(
+        description="""Checks all files in dir for superfluous edges."""
+    )
+    arg_parser.add_argument(
+        "dir",
+        help="""Dircetory containing dishname directories which in turn contain recipes in CoNLL-U format.""",
+    )
+    args = arg_parser.parse_args()
+
+    #random_sources, random_targets, nonhead_targets = find_edges_to_nonnodes("./ActionGraphs")
+    random_sources, random_targets, nonhead_targets = find_edges_to_nonnodes(args.dir)
 
     print("Unlabelled nodes with outgoing edges:")
     for node in random_sources:

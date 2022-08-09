@@ -1,16 +1,16 @@
 import os
 import numpy as np
+import argparse
 
 
 def find_disconnected_nodes(folder_path: str):
-
 
     disconnected_nodes = []
 
     # go through all files in all subfolders of the folder "folder_path"
     for dish_directory in os.listdir(folder_path):
-        for recipe in os.listdir("/".join([folder_path, dish_directory])):
-            recipe_path = "/".join([folder_path, dish_directory, recipe])
+        for recipe in os.listdir(os.path.join(folder_path, dish_directory)):
+            recipe_path = os.path.join(folder_path, dish_directory, recipe)
             with open(recipe_path, "r", encoding="utf-8") as rec:
                 nodes_information = dict()
                 ids_nodes_incoming_edges = set()
@@ -59,7 +59,19 @@ def find_disconnected_nodes(folder_path: str):
 
 
 if __name__=="__main__":
-    disc_nodes = find_disconnected_nodes("./round2_tagged_parsed")
 
+    arg_parser = argparse.ArgumentParser(
+        description="""Checks all files in dir for disconnected nodes."""
+    )
+    arg_parser.add_argument(
+        "dir",
+        help="""Dircetory containing dishname directories which in turn contain recipes in CoNLL-U format.""",
+    )
+    args = arg_parser.parse_args()
+
+    #disc_nodes, head_nodes = find_disconnected_graphs("./round2_ActionGraphs")
+    disc_nodes = find_disconnected_nodes(args.dir)
+
+    print("Disconnected nodes: ")
     for node in disc_nodes:
         print(node)
