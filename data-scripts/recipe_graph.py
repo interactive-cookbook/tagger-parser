@@ -81,7 +81,7 @@ def _read_graph_conllu(conllu_graph_file, token_ids):
     return node_tuples, edge_list, tags_dict
 
 
-def read_graph_from_conllu(conllu_graph_file):
+def read_graph_from_conllu(conllu_graph_file, token_ids=True):
     """
     Reads into a graph file - either recipe or action graph - in conllu format and transforms it into
     a NetworkX object
@@ -90,7 +90,7 @@ def read_graph_from_conllu(conllu_graph_file):
     """
     import collections
     node_list=[]
-    nodes, edges, tags_dict = _read_graph_conllu(conllu_graph_file,True)
+    nodes, edges, tags_dict = _read_graph_conllu(conllu_graph_file, token_ids)
 
     # the following extracts not only the node indices, but also their labels
     for node_tuple in nodes:
