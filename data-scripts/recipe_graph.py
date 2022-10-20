@@ -1,9 +1,32 @@
 import networkx as nx
 #recipe="chocolate_glaze_5.conllu" # example of recipe graph
-recipe="waffle_parsed_1.conllu" # example of action graph
+recipe="recipe.conllu" # example of action graph
 
 # still need to organize the functions in a class
 # codebase taken from Katharina's work and adjusted/extended by Iris
+
+########################################################################
+## New functions in order to make the whole project based on Network X ##
+########################################################################
+def _read_graph_brat():
+    raise NotImplementedError
+def read_graph_brat():
+    raise NotImplementedError
+
+def _read_graph_flow():
+    raise NotImplementedError
+def read_graph_flow():
+    raise NotImplementedError
+
+def _read_tagger_output_json():
+    raise NotImplementedError
+def read_tagger_output_json():
+    raise NotImplementedError
+def _read_parser_output_json():
+    raise NotImplementedError
+def read_parser_output_json():
+    raise NotImplementedError
+
 
 def _read_graph_conllu(conllu_graph_file, token_ids):
     """
@@ -122,22 +145,28 @@ def write_graph_to_conllu(networkx_graph):
     :param networkx_graph: path to graph file in NetworkX format
     :return: an action/recipe graph file (so only the lines that contain the tagged tokens are included) in conllu format
     """
-    #outfile="x"
+    outfile="duplicate.conllu"
+
+    G = networkx_graph
 
     # Write action graph into CoNLL-U file
     with open((outfile), "w", encoding="utf-8") as o:
         #with open(networkx_graph, "r", encoding="utf-8") as g:
         for node in G.nodes:
             #print(node)
-            outfile = G.nodes[node]["origin"] # sometimes it doesn't work, look at it further
-            id = node
-            token = G.nodes[node]["label"]
-            tag = G.nodes[node]["tag"]
-            line = [id, token, "_", "_", tag, "_"]
+            #outfile = G.nodes[node]["origin"] # sometimes it doesn't work, look at it further
+            if node != "end":
+                id = node
+                print(node)
+                print(G.nodes[node])
+                token = G.nodes[node]["label"]
+                tag = G.nodes[node]["tag"]
+                line = [id, token, "_", "_", tag, "_"]
+                # do I read this correctly that each token is its own node?
 
             for edge in G.edges:
                 if edge[0] == node:
-                    line.append(edge[1])
+                    line.append(edge[1]) # this does not look like it works correctly
 
             o.write("\t".join(line))
             o.write("\n")
@@ -146,7 +175,7 @@ def write_graph_to_conllu(networkx_graph):
     
 
 # function 1
-print(_read_graph_conllu(recipe,False)[2])
+#print(_read_graph_conllu(recipe,False)[2])
 # function 2
 G=read_graph_from_conllu(recipe)
 # function 3
