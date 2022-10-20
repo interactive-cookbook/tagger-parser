@@ -1,9 +1,9 @@
 # Tagger and Parser(AllenNLP 2.8 Implementation)
 
 ## Environment setup
-1. Create a conda environment with Python 3.7
+1. Create a conda environment with Python 3.8
 ```
-conda create -n allennlp python=3.7
+conda create -n allennlp python=3.8
 ```
 2. Activate the new environment
 ```
