@@ -27,6 +27,11 @@ def _read_parser_output_json():
 def read_parser_output_json():
     raise NotImplementedError
 
+# What does Katharina need from this class?
+
+# The Jovo prototype needs a function next_step()
+# Also see dummy class in jovo repo
+
 
 def _read_graph_conllu(conllu_graph_file, token_ids):
     """
