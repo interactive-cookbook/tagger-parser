@@ -1,9 +1,9 @@
 # Tagger and Parser(AllenNLP 2.8 Implementation)
 
 ## Environment setup
-1. Create a conda environment with Python 3.8
+1. Create a conda environment with Python 3.7
 ```
-conda create -n allennlp python=3.8
+conda create -n allennlp python=3.7
 ```
 2. Activate the new environment
 ```
@@ -29,12 +29,9 @@ Available tagger configurations:
 
 Available parser configurations:
 - [`parser/parser.jsonnet`](parser/parser.jsonnet) - Biaffine dependency parser (Dozat and Manning, 2017)
-
  
 For the ELMo taggers, we use the following ELMo parameters (i.e. options and weights):
-- English: [weights and options](https://allennlp.s3.amazonaws.com/models/ner-model-2018.12.18.tar.gz) (use the weights and options files under `fta/` after unzipping)
-
-<!-- - German: [weights](https://github.com/t-systems-on-site-services-gmbh/german-elmo-model/releases/download/files_1/weights.hdf5) and [options](https://github.com/t-systems-on-site-services-gmbh/german-elmo-model/releases/download/files_1/options.json) -->
+- [English](https://api.semanticscholar.org/CorpusID:7197241): [weights and options](https://allennlp.s3.amazonaws.com/models/ner-model-2018.12.18.tar.gz) (use the weights and options files under `fta/` after unzipping)
 
 **Internal note**: the ELMo options and weight files can be found on the Saarland servers at `/proj/cookbook.shadow/elmo_english`.
 
@@ -53,6 +50,8 @@ Run `allennlp evaluate [archive file] [input file] --output-file [output file]` 
 - `[output file]` is an optional path to save the metrics as JSON; if not provided, the output will be displayed on the console.
 
 ### Performance (TODO - Needs updating)
+
+**ERRATUM** (Donatelli et al., EMNLP 2021): Please refer to our [Wiki page](https://github.com/interactive-cookbook/tagger-parser/wiki/Erratum-(EMNLP-2021-Paper)) for a list of corrections, particularly concerning the reporting of results and comparability.
 
 <!-- 
 Tagger performance on the [English corpus](data/English) (test.conll03):
@@ -84,7 +83,6 @@ IAA | 100-r by Y'20 | | 89.9 | 92.2 | 90.5
 Y'20 | 300-r by Y'20 | | 86.5 | 88.8 | 87.6
 Our tagger  | [300-r by Y'20](data/English/Tagger) | [English ELMo](tagger/tagger_with_english_elmo_config.json) | **89.9** ± 0.5 | **89.2** ± 0.4 | **89.6** ± 0.3
 Our tagger  | [300-r by Y'20](data/English/Tagger) | [multilingual BERT](tagger/tagger_with_bert_config.json) | 88.7 ± 0.4 | 88.4 ± 0.1 | 88.5 ± 0.2
-Our tagger  | [300-r by Y'20](data/English/Tagger) | [facebook/bart-large](tagger/2.8_tagger_bart-bilstm-crf.json) | 82.4 | 85.3 | 83.8
 | | | | | 
 Our tagger  | [German](data/German/Tagger) | [German ELMo](tagger/tagger_with_german_elmo_config.json) | 79.2 ± 1.4 | 81.2 ± 1.8 | 80.2 ± 1.6
 Our tagger  | [German](data/German/Tagger) | [multilingual BERT](tagger/tagger_with_bert_config.json) | 75.3 ± 0.8 | 76.0 ± 1.0 | 75.7 ± 0.9
@@ -122,14 +120,11 @@ Our parser  | [German](data/German/Parser) | [German ELMo tagger](tagger/tagger_
 ## Prediction
 
 Run `allennlp predict [archive file] [input file] --use-dataset-reader --output-file [output file]` to parse a file with a pretrained model, where
-- `[archive file]` i is the path to an archived trained model.
+- `[archive file]` is the path to an archived trained model.
 - `[input file]` is the path to the file you want to parse; this file should be in the same format as the training data, i.e. CoNLL-2003 for the tagger and CoNLL-U for the parser.
 - `use-dataset-reader` tells the parser to use the same dataset reader as it used during training.
 - `[output file]` is an optional path to save parsing results as JSON; if not provided, the output will be displayed on the console.
 
-The ouput of the parser will be in JSON format. To transform this into the better readable CoNLL-U format, run the [data-conversions/read_prediction.py](data-conversions/read_prediction.py) with the following arguments:
-- `-m [mode]` where `[mode]` can be either `analysis` (for error analysis), `tagger_p2c` (translates tagger output into CoNLL-U file) or `parser_p2c` (translates parser output into CoNLL-U format).
-- `-p [model output]` where `[model output]` is the tagger or parser output in json format. 
-- `-o [file]` to state where you want to save the output. Default: `[model output].conllu`.
+The output of the parser will be in JSON format. To transform this into the better readable CoNLL-U format, use [data-scripts/json_to_conll.py](data-scripts/json_to_conll.py). To get labeled evaluation results for parser output, use the script [data-scripts/parser_evaluation.py]([data-scripts/parser_evaluation.py]). Instructions for their use can be found in [data-scripts/README.md](data-scripts/README.md).
 
 For sample inputs and outputs see [English/Samples](data/English/Samples). 

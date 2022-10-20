@@ -1,0 +1,16 @@
+1	In	_	II	O	_	0	root	_	_
+2	a	_	AT1	O	_	0	root	_	_
+3	large	_	JJ	B-St	_	4	t-part-of	_	_
+4	bowl	_	NN1	B-T	_	6	t-comp	_	_
+5	,	_	,	O	_	0	root	_	_
+6	combine	_	VV0	B-Ac	_	10	t	_	_
+7	all	_	DB	B-Q	_	8	o	_	_
+8	ingredients	_	NN2	B-F	_	6	t	_	_
+9	.	_	.	O	_	0	root	_	_
+10	Toss	_	VV0	B-Ac	_	13	t	_	_
+11	well	_	RP	O	_	0	root	_	_
+12	,	_	,	O	_	0	root	_	_
+13	chill	_	NN1	B-Ac	_	15	t	_	_
+14	and	_	CC	O	_	0	root	_	_
+15	serve	_	VV0	B-Ac	_	0	root	_	_
+16	.	_	.	O	_	0	root	_	_
