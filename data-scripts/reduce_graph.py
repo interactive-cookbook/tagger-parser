@@ -13,7 +13,9 @@
 # limitations under the License.
 
 """
-Takes CoNLL-U file with exactly one recipe graph (Yamakata'20 labels) and computes reduced graph for it. The reduced graph either contains only action, tool and food nodes (mode "fat") or only action nodes (mode "a"). BIOUL lables are changed into IOB2 labels. The output is a CoNLL-U file. 
+Takes CoNLL-U file with exactly one recipe graph (Yamakata'20 labels) and computes reduced graph for it.
+The reduced graph either contains only action, tool and food nodes (mode "fat") or only action nodes (mode "a").
+BIOUL lables are changed into IOB2 labels. The output is a CoNLL-U file.
 """
 
 
@@ -41,7 +43,7 @@ def heads(line):
 
 
 def is_desired_token(line, desired):
-    # returns True if the token's seuquence tag (CoNLL-U column 4) is one of the desired labels, i.e. one of
+    # returns True if the token's sequence tag (CoNLL-U column 4) is one of the desired labels, i.e. one of
     # {Ac, Ac2, At, Af, F, T}, the set of all actions, tools and foods
     # (for event graphs / action graphs only {Ac, Ac2, At, Af})
 

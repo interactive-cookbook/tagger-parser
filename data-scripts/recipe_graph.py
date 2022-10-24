@@ -1,12 +1,15 @@
 import networkx as nx
+import copy
 #recipe="chocolate_glaze_5.conllu" # example of recipe graph
-recipe="recipe.conllu" # example of action graph
+recipe="recipe.conllu" # perfect example: branched, disconnected, cyclic;
+#                        source: "English Yamakata & Mori Corpus\r-200\test\recipe-00043-11216.conllu"
 
 # still need to organize the functions in a class
 # codebase taken from Katharina's work and adjusted/extended by Iris
 
 #########################################################################
 ## New functions in order to make the whole project based on Network X ##
+## author: Theresa                                                     ##
 #########################################################################
 
 ## Pseudocode sketch for write_to_conllu that produces CoNLL-U files
@@ -35,6 +38,8 @@ write_to_conll():
             write id,token,node['tag'],heads_to_conllu(node.successors) to file
         else:
             write line where tag=O and head=0 with deprel=root and no additional heads
+    # Note: action graphs and fat graph tags should be in IOB2 format; in general, the choice
+    # between IOB2 and BIOUL should be an argument of this function with default value IOB2.
             
 heads_to_conll(list of heads):
     compose tab-separated string with 
@@ -72,6 +77,74 @@ def read_parser_output_json():
 # also see dummy class in jovo repo
 
 
+
+###################################
+## functions for graph reduction ##
+## author: Theresa               ##
+###################################
+"""
+Reduce a nx.DiGraph of a full recipe graph into an action graph or fat graph.
+
+FAT graph: contains only nodes with 'food', 'action' or 'tool' labels.
+Action graph: contains only nodes with 'action' labels.
+(Further types of reduced graphs can be added by defining sets of desired token labels.)
+
+All sub-categories of the labels are merged into the super-categories (i.e. all actions are labelled 'A').
+Where nodes are deleted, the edges between the remaining nodes are reconnected s.t. there is an edge between 
+each pair of nodes if there was a path between these nodes.
+(If tags come in BIOUL tagging scheme, they should be translated into IOB2. --> Issue of write_to_conll() function.)
+"""
+# Define desired labels
+fat_labels = {"Ac", "At", "Af", "Ac2", "F", "T"}
+action_labels = {"Ac", "At", "Af", "Ac2"}
+
+def reduced_tag(tag):
+    """
+    Changes tags Ac, Ac2, At, Af into A.
+
+    TODO:   Naming Issue "tag" vs "label" might lead to confusion:
+    TODO:   Up till now, and especially when talking about the CoNLL-U graph representation,
+    TODO:   the node type was denoted with something called a "label", e.g. Ac, F, T, ... whereas
+    TODO:   the fourth column in the actual CoNLL-U files is called TAGS. A "tag" is composed of
+    TODO:   a BIOUL or IOB2 component, indicating the position of the respective token within
+    TODO:   a phrase that makes up a node, and a label component describing the node type; tag examples: B-Ac, I-T, etc..
+    TODO:   The present conflict stems from the keyword "label" to mean the name of the node,  e.g. 5_the_butter.
+    """
+    if tag in {"Ac", "Ac2", "At", "Af"}:
+        return "A"
+    else:
+        return tag
+
+def generate_reduced_graph(G, desired):
+    # possibly simply traverse full graph and delete nodes with undesired labels; reconnect their predecessor(s) to their successor(s)
+
+    # copy nodes so we can delete nodes while iterating over them
+    _nodes = copy.deepcopy(G.nodes)
+    for node in _nodes:
+        print(f"node: {node} (should be int ID)")
+        print(node, G.nodes[node])
+        if node != "end":
+            if not G.nodes[node]['tag'] in desired:
+                # add new edges from all predecessors of node to all successors
+                G.add_edges_from([(p,s) for p in G.predecessors(node) for s in G.successors(node)])
+                # delete node from G
+                G.remove_node(node)
+            else:
+                # change G[node]['tag'] to its reduced form
+                G.nodes[node]['tag'] = reduced_tag(G.nodes[node]['tag'])
+        else:
+            pass # TODO: do we need to do anything about the end nodes? What do they mean?
+    # add label "edge" to all edges; I believe it was the alignment model that expects the label "edge" in action graphs
+    for h,t in G.edges:
+        G[h][t]['label'] = "edge"
+    return G
+
+
+######################################################
+## functions for reading from and writing to conllu ##
+## original author: Iris                            ##
+######################################################
+
 def _read_graph_conllu(conllu_graph_file, token_ids):
     """
     Reads in a graph - either recipe graph or action graph - and extracts all nodes,
@@ -100,7 +173,6 @@ def _read_graph_conllu(conllu_graph_file, token_ids):
             edge_label = columns[7]
 
             if tag == "O":
-                tag=tag
                 if complete_token != "":
                     node_tuple = (prev_id, {"label": complete_token})
                     node_tuples.append(node_tuple)
@@ -141,6 +213,8 @@ def _read_graph_conllu(conllu_graph_file, token_ids):
             columns = line.strip().split()
             id = columns[0]
             tag = columns[4]
+            if tag != "O":
+                tag = tag.split("-")[1]
             for node_tuple in node_tuples:
                 if node_tuple[0]==id:
                     tags_dict[str(node_tuple[1]["label"])]=tag
@@ -169,7 +243,7 @@ def read_graph_from_conllu(conllu_graph_file, token_ids=True):
     G.add_nodes_from(nodes)
     G.add_edges_from(edges)
 
-    G_name="G_"+str(conllu_graph_file)
+    G_name="G_"+str(conllu_graph_file) # TODO: why is this a node attribute - better graph attribute?; Also, why begin with "G_"?
 
     # attributes: key=node, value=dict("label":X, "tag":X, "origin":G_name, "alignment":node_aligned, "amr":corresponding_amr) # the attributes list will be expanded if needed
     nodes_attributes = collections.defaultdict(dict)
@@ -183,13 +257,12 @@ def read_graph_from_conllu(conllu_graph_file, token_ids=True):
     return G
 
   
-def write_graph_to_conllu(networkx_graph):
+def write_graph_to_conllu(networkx_graph, outfile):
     """
     #:param outdirectory: it is possible to either specify outdir or it gets automatically created
     :param networkx_graph: path to graph file in NetworkX format
     :return: an action/recipe graph file (so only the lines that contain the tagged tokens are included) in conllu format
     """
-    outfile="duplicate.conllu"
 
     G = networkx_graph
 
@@ -201,8 +274,8 @@ def write_graph_to_conllu(networkx_graph):
             #outfile = G.nodes[node]["origin"] # sometimes it doesn't work, look at it further
             if node != "end":
                 id = node
-                print(node)
-                print(G.nodes[node])
+                #print(node)
+                #print(G.nodes[node])
                 token = G.nodes[node]["label"]
                 tag = G.nodes[node]["tag"]
                 line = [id, token, "_", "_", tag, "_"]
@@ -213,13 +286,21 @@ def write_graph_to_conllu(networkx_graph):
 
             o.write("\t".join(line))
             o.write("\n")
-
+    # TODO: bug: Why does the last line appear twice in the output file?
     print("NetworkX graph has been transformed in conllu format")
     
 
-# function 1
-#print(_read_graph_conllu(recipe,False)[2])
-# function 2
+## Test ##
+# 1. read graph from file
 G=read_graph_from_conllu(recipe)
-# function 3
-write_graph_to_conllu(G)
+# 2. write to file
+write_graph_to_conllu(G,outfile="duplicate.conllu")
+# 3. reduce graph to FAT graph
+G=generate_reduced_graph(G,fat_labels)
+# 4. write fat graph
+write_graph_to_conllu(G,"fatgraph.conllu")
+# 5. further reduce graph to action graph
+G=generate_reduced_graph(G,action_labels)
+# 6. write action graph to file
+write_graph_to_conllu(G,"actiongraph.conllu")
+
