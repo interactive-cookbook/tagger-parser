@@ -5,19 +5,58 @@ recipe="recipe.conllu" # example of action graph
 # still need to organize the functions in a class
 # codebase taken from Katharina's work and adjusted/extended by Iris
 
-########################################################################
+#########################################################################
 ## New functions in order to make the whole project based on Network X ##
-########################################################################
+#########################################################################
+
+## Pseudocode sketch for write_to_conllu that produces CoNLL-U files
+# in the style we've been using in the project so far;;
+## We don't need to keep using them: an alternative would be using
+# the below style from Iris&Katharina's code and saving the recipe text in separate files.
+
+"""
+class RecipeGraph(nx.DiGraph):  
+    # class inherits from network X directed graph
+    # additional attribute tokenized_recipe_text which could be a list of string tokens
+...
+
+# or
+
+class RecipeGraphComprehension():
+    # class with two central attributes: a nx.DiGraph and some representation of the full recipe text
+...
+
+write_to_conll():
+    for node in graph:
+        if node has more than one text token:
+            graph.add_nodes_from(list of (token_id,{'text':token_str) tuples)
+    for id,token in enumerate(recipe_text):
+        if id is a node id in graph:
+            write id,token,node['tag'],heads_to_conllu(node.successors) to file
+        else:
+            write line where tag=O and head=0 with deprel=root and no additional heads
+            
+heads_to_conll(list of heads):
+    compose tab-separated string with 
+    first head, edge label of first head, (head,label) pairs of all additional edges
+    
+"""
+
+
+# reading in from annotation tool file format (implement only if needed; might be available somewhere)
+# I think some coreference files have the same format
 def _read_graph_brat():
     raise NotImplementedError
 def read_graph_brat():
     raise NotImplementedError
 
+# from flow file format as used by Y'20 (implement only if needed; might already be available somewhere)
 def _read_graph_flow():
     raise NotImplementedError
 def read_graph_flow():
     raise NotImplementedError
 
+# from tagger and parser outputs
 def _read_tagger_output_json():
     raise NotImplementedError
 def read_tagger_output_json():
@@ -29,8 +68,8 @@ def read_parser_output_json():
 
 # What does Katharina need from this class?
 
-# The Jovo prototype needs a function next_step()
-# Also see dummy class in jovo repo
+# The Jovo prototype needs a function next_step() but maybe we'll have a separate class for that;
+# also see dummy class in jovo repo
 
 
 def _read_graph_conllu(conllu_graph_file, token_ids):
@@ -167,11 +206,10 @@ def write_graph_to_conllu(networkx_graph):
                 token = G.nodes[node]["label"]
                 tag = G.nodes[node]["tag"]
                 line = [id, token, "_", "_", tag, "_"]
-                # do I read this correctly that each token is its own node?
 
             for edge in G.edges:
                 if edge[0] == node:
-                    line.append(edge[1]) # this does not look like it works correctly
+                    line.append(edge[1]) # TODO: double-check
 
             o.write("\t".join(line))
             o.write("\n")
