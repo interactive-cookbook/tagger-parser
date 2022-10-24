@@ -95,8 +95,8 @@ each pair of nodes if there was a path between these nodes.
 (If tags come in BIOUL tagging scheme, they should be translated into IOB2. --> Issue of write_to_conll() function.)
 """
 # Define desired labels
-fat_labels = {"Ac", "At", "Af", "Ac2", "F", "T"}
-action_labels = {"Ac", "At", "Af", "Ac2"}
+fat_labels = {"A", "Ac", "At", "Af", "Ac2", "F", "T"} # {"A","F","T"} would suffice
+action_labels = {"A", "Ac", "At", "Af", "Ac2"} # {"A"} would suffice
 
 def reduced_tag(tag):
     """
@@ -121,17 +121,18 @@ def generate_reduced_graph(G, desired):
     # copy nodes so we can delete nodes while iterating over them
     _nodes = copy.deepcopy(G.nodes)
     for node in _nodes:
-        print(f"node: {node} (should be int ID)")
-        print(node, G.nodes[node])
+        #print(f"node: {node} (should be int ID)")
+        #print(node, G.nodes[node])
         if node != "end":
-            if not G.nodes[node]['tag'] in desired:
+            tag = reduced_tag(G.nodes[node]['tag'])
+            if not tag in desired:
                 # add new edges from all predecessors of node to all successors
                 G.add_edges_from([(p,s) for p in G.predecessors(node) for s in G.successors(node)])
                 # delete node from G
                 G.remove_node(node)
             else:
                 # change G[node]['tag'] to its reduced form
-                G.nodes[node]['tag'] = reduced_tag(G.nodes[node]['tag'])
+                G.nodes[node]['tag'] = tag
         else:
             pass # TODO: do we need to do anything about the end nodes? What do they mean?
     # add label "edge" to all edges; I believe it was the alignment model that expects the label "edge" in action graphs
@@ -280,12 +281,12 @@ def write_graph_to_conllu(networkx_graph, outfile):
                 tag = G.nodes[node]["tag"]
                 line = [id, token, "_", "_", tag, "_"]
 
-            for edge in G.edges:
-                if edge[0] == node:
-                    line.append(edge[1]) # TODO: double-check
+                for edge in G.edges:
+                    if edge[0] == node:
+                        line.append(edge[1]) # TODO: double-check
 
-            o.write("\t".join(line))
-            o.write("\n")
+                o.write("\t".join(line))
+                o.write("\n")
     # TODO: bug: Why does the last line appear twice in the output file?
     print("NetworkX graph has been transformed in conllu format")
     
