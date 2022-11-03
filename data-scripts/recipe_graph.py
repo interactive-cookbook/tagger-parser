@@ -243,8 +243,12 @@ def read_graph_from_conllu(conllu_graph_file, token_ids=True):
     G = nx.DiGraph()
     G.add_nodes_from(nodes)
     G.add_edges_from(edges)
+    
+    conllu_graph_file_name = conllu_graph_file.split('/')[-1]    # remove path and keep only file name
+    conllu_graph_file_name = '.'.join(conllu_graph_file_name.split('.')[:-1])   # remove file ending .conllu
+    G_name = "G_" + str(conllu_graph_file_name)
 
-    G_name="G_"+str(conllu_graph_file) # TODO: why is this a node attribute - better graph attribute?; Also, why begin with "G_"?
+    #G_name="G_"+str(conllu_graph_file) # TODO: why is this a node attribute - better graph attribute?; Also, why begin with "G_"?
 
     # attributes: key=node, value=dict("label":X, "tag":X, "origin":G_name, "alignment":node_aligned, "amr":corresponding_amr) # the attributes list will be expanded if needed
     nodes_attributes = collections.defaultdict(dict)
