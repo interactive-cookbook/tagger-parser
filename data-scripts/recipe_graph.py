@@ -1,11 +1,19 @@
+"""
+Class that deals with different representations of recipe graphs.
+
+This class has functions to read from and write to different formats, as well has functions that
+manipulate the graph, e.g. reduction from full graph to action graph.
+Internally, the recipe graph is ALWAYS represented as an nx.DiGraph from which this class inherits.
+"""
+# Last updated by Theresa, Nov 2022
+
+
 import networkx as nx
 import copy
-#recipe="chocolate_glaze_5.conllu" # example of recipe graph
+
 recipe="recipe.conllu" # perfect example: branched, disconnected, cyclic;
 #                        source: "English Yamakata & Mori Corpus\r-200\test\recipe-00043-11216.conllu"
 
-# still need to organize the functions in a class
-# codebase taken from Katharina's work and adjusted/extended by Iris
 
 #########################################################################
 ## New functions in order to make the whole project based on Network X ##
@@ -124,7 +132,14 @@ def reduced_tag(tag):
         return tag
 
 def generate_reduced_graph(G, desired):
-    # possibly simply traverse full graph and delete nodes with undesired labels; reconnect their predecessor(s) to their successor(s)
+    """
+    traverse full graph and delete nodes with undesired labels;
+    reconnect their predecessor(s) to their successor(s)
+
+    Arguments:
+        - G: an nx.DiGraph
+        - desired: a List of NE-labels to define which kinds of nodes are to be preserved in the reduced graph
+    """
 
     # copy nodes so we can delete nodes while iterating over them
     _nodes = copy.deepcopy(G.nodes)
@@ -204,6 +219,32 @@ def _read_graph_conllu(conllu_graph_file, token_ids):
 
             elif tag[0] == "I":
                 complete_token += " " + token
+                # TODO: We didn't use to ignore the annotations on the "I-" tokens.
+                ## -  Reason for their existence: The parser annotates all tokens of the recipe text (as opposed to all
+                ## nodes in the graph, i.e. all meaningful chunks of the text).
+                ## - Argument why we'ven been adding such dependency edges to the corresponding node: the parser is
+                ## a tree parser and this is the only way to get multiple heads for one node.
+                ## Example of where the additional edge reflects the structure of the cooking process (both
+                ## heads of "ice cubes" are meaningful:
+                ## 130    Serve    _    _    B-Ac    _    137    t    _    _
+                ## 131    tea    _    _    B-F    _    130    t    _    _
+                ## 132    in    _    _    O    _    0    root    _    _
+                ## 133    glasses    _    _    B-T    _    130    d    _    _
+                ## 134    over    _    _    O    _    0    root    _    _
+                ## 135    ice    _    _    B-F    _    133    f-part-of    _    _
+                ## 136    cubes    _    _    I-F    _    137    t    _    _
+                ## 137    to    _    _    B-Ac2    _    0    root    _    _
+                ## 138    chill    _    _    I-Ac2    _    137    o    _    _
+                ## (from github/ara2.../southern_sweet_tea_3.conllu)
+                ## - Argument for ignoring dependency annotation on "I-" tokens: Strong bias
+                ## multi-token nodes vs single-token nodes. Also, it's not clear whether the parsing
+                ## accuracy on these annotations is satisfiable and whether it is actually correct to interpret them as
+                ## equally good as the annotations on the "B-" tokens.
+                ## Example where the additional edge makes no sense and is actually problematic because it is
+                ## creating a cycle:
+                ## 137	to	_	_	B-Ac2	_	0	root	_	_
+                ## 138	chill	_	_	I-Ac2	_	137	o	_	_
+                ## (from github/ara2.../southern_sweet_tea_3.conllu)
 
         if complete_token != "":
             node_tuple = (prev_id, {"label": complete_token})
@@ -320,4 +361,5 @@ write_graph_to_simple_conllu(G,"fatgraph.conllu")
 G=generate_reduced_graph(G,action_labels)
 # 6. write action graph to file
 write_graph_to_simple_conllu(G,"actiongraph.conllu")
+write_graph_to_conllu(G, "real_actiongraph.conllu")
 
