@@ -13,20 +13,12 @@ recipe="recipe.conllu" # perfect example: branched, disconnected, cyclic;
 #########################################################################
 
 ## Pseudocode sketch for write_to_conllu that produces CoNLL-U files
-# in the style we've been using in the project so far;;
-## We don't need to keep using them: an alternative would be using
-# the below style from Iris&Katharina's code and saving the recipe text in separate files.
+# in the style we've been using in the project so far
 
 """
 class RecipeGraph(nx.DiGraph):  
     # class inherits from network X directed graph
     # additional attribute tokenized_recipe_text which could be a list of string tokens
-...
-
-# or
-
-class RecipeGraphComprehension():
-    # class with two central attributes: a nx.DiGraph and some representation of the full recipe text
 ...
 
 write_to_conll():
@@ -71,7 +63,21 @@ def _read_parser_output_json():
 def read_parser_output_json():
     raise NotImplementedError
 
+# I think Sandro said he's using a different input format for his parser?
+
+
 # What does Katharina need from this class?
+
+def yield_node(token):
+    """associates tokens with AMR nodes (graphs?);
+    AMR node: """
+    # return self[token]["amr"]
+    raise NotImplementedError
+def import_amr_nodes(amr_graph):
+    """
+    Set AMR attribute in recipe graph nodes
+    """
+    raise NotImplementedError
 
 # The Jovo prototype needs a function next_step() but maybe we'll have a separate class for that;
 # also see dummy class in jovo repo
@@ -109,6 +115,8 @@ def reduced_tag(tag):
     TODO:   a BIOUL or IOB2 component, indicating the position of the respective token within
     TODO:   a phrase that makes up a node, and a label component describing the node type; tag examples: B-Ac, I-T, etc..
     TODO:   The present conflict stems from the keyword "label" to mean the name of the node,  e.g. 5_the_butter.
+
+    TODO: solution: call recipe labels NE_labels in accordance with Y'20 or even yamakata_labels
     """
     if tag in {"Ac", "Ac2", "At", "Af"}:
         return "A"
@@ -246,9 +254,8 @@ def read_graph_from_conllu(conllu_graph_file, token_ids=True):
     
     conllu_graph_file_name = conllu_graph_file.split('/')[-1]    # remove path and keep only file name
     conllu_graph_file_name = '.'.join(conllu_graph_file_name.split('.')[:-1])   # remove file ending .conllu
-    G_name = "G_" + str(conllu_graph_file_name)
-
-    #G_name="G_"+str(conllu_graph_file) # TODO: why is this a node attribute - better graph attribute?; Also, why begin with "G_"?
+    G_name = "G_" + str(conllu_graph_file_name) # TODO: should be a node attribute bc later, in the consolidated graph, we want to know where this node came from
+    # TODO: should also be graph attribute
 
     # attributes: key=node, value=dict("label":X, "tag":X, "origin":G_name, "alignment":node_aligned, "amr":corresponding_amr) # the attributes list will be expanded if needed
     nodes_attributes = collections.defaultdict(dict)
@@ -261,8 +268,13 @@ def read_graph_from_conllu(conllu_graph_file, token_ids=True):
 
     return G
 
-  
 def write_graph_to_conllu(networkx_graph, outfile):
+    """
+    Writes the recipe graph into the CoNLL-U format that we've been using all through the project, esp. for the tagger and parser.
+    """
+    raise NotImplementedError
+  
+def write_graph_to_simple_conllu(networkx_graph, outfile):
     """
     #:param outdirectory: it is possible to either specify outdir or it gets automatically created
     :param networkx_graph: path to graph file in NetworkX format
@@ -299,13 +311,13 @@ def write_graph_to_conllu(networkx_graph, outfile):
 # 1. read graph from file
 G=read_graph_from_conllu(recipe)
 # 2. write to file
-write_graph_to_conllu(G,outfile="duplicate.conllu")
+write_graph_to_simple_conllu(G,outfile="duplicate.conllu")
 # 3. reduce graph to FAT graph
 G=generate_reduced_graph(G,fat_labels)
 # 4. write fat graph
-write_graph_to_conllu(G,"fatgraph.conllu")
+write_graph_to_simple_conllu(G,"fatgraph.conllu")
 # 5. further reduce graph to action graph
 G=generate_reduced_graph(G,action_labels)
 # 6. write action graph to file
-write_graph_to_conllu(G,"actiongraph.conllu")
+write_graph_to_simple_conllu(G,"actiongraph.conllu")
 

@@ -1,0 +1,11 @@
+
+data-scripts/fatgraph.conllu
+data-scripts/directly_generated_actiongraph.conllu
+.idea/misc.xml
+.idea/inspectionProfiles/profiles_settings.xml
+.idea/modules.xml
+.idea/tagger-parser.iml
+.idea/vcs.xml
+.idea/workspace.xml
+data-scripts/actiongraph.conllu
+data-scripts/duplicate.conllu
