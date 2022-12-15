@@ -10,6 +10,7 @@ Internally, the recipe graph is ALWAYS represented as an nx.DiGraph from which t
 
 import networkx as nx
 import copy
+import ast
 
 recipe="recipe.conllu" # perfect example: branched, disconnected, cyclic;
 #                        source: "English Yamakata & Mori Corpus\r-200\test\recipe-00043-11216.conllu"
@@ -163,6 +164,28 @@ def generate_reduced_graph(G, desired):
         G[h][t]['label'] = "edge"
     return G
 
+def edges_from_columns(columns):
+    """
+    Compiles (edge, edge_label) pairs list for one line in a CoNLL-U file.
+    :param columns: list of column values from one line in a CoNLL-U file
+    :return: list of (int, string) pairs describing all edges and their labels annotated in this line
+    """
+    main_edge = (int(columns[6]), columns[7])
+    edges = set()
+    edges.add(main_edge)
+    raise NotImplementedError("not tested in any way")
+    if columns[8] == "_":
+        pass
+    elif columns[8].startswith("["):
+        edges = edges.union(set(ast.literal_eval(columns[8]))) # does it parse edge IDs as int?
+    else:
+        # Sandro's parsers' output format
+        _edges = columns[8].split("|")
+        for _e in _edges:
+            id,label = _e.split(":")
+            edges.add(tuple(int(id),label))
+
+    return edges
 
 ######################################################
 ## functions for reading from and writing to conllu ##
@@ -172,7 +195,9 @@ def generate_reduced_graph(G, desired):
 def _read_graph_conllu(conllu_graph_file, token_ids):
     """
     Reads in a graph - either recipe graph or action graph - and extracts all nodes,
-    edges, the tag labels from the file
+    edges, tag labels from the file.
+    Input format is CoNLL-U: either the one we have been using where DEPS column values are lists of pairs of strings
+    (e.g. "[(29,'t'),(34,'d')]") or the one that Sandro's parsers output (e.g. "29:t|34:d").
     :param conllu_graph_file: path to graph file in conllu format
     :param token_ids: whether the node labels should include the token ids
                 e.g. if ids = True than node is labelled with "1_Preheat" otherwise with "Preheat"
@@ -193,8 +218,9 @@ def _read_graph_conllu(conllu_graph_file, token_ids):
             id = columns[0]
             token = columns[1]
             tag = columns[4]
-            edge = columns[6]
-            edge_label = columns[7]
+            edges = edges_from_columns(columns)
+            """edge = columns[6]
+            edge_label = columns[7]"""
 
             if tag == "O":
                 if complete_token != "":
@@ -210,12 +236,17 @@ def _read_graph_conllu(conllu_graph_file, token_ids):
                     complete_token = str(id) + "_" + token
                 else:
                     #complete_token = token
-                    complete_token = id
+                    complete_token = id #TODO: not ```token``` or ```str(id)+"_"+token```?
                 prev_id = id
-                if edge != "0":
+                """if edge != "0":
                     edge_list.append((id, edge, {"label": edge_label}))
                     parents.append(id)
-                    children.append(edge)
+                    children.append(edge)"""
+                for edge, edge_label in edges:
+                    if edge != "0":
+                        edge_list.append((id, edge, {"label": edge_label}))
+                        parents.append(id)
+                        children.append(edge)
 
             elif tag[0] == "I":
                 complete_token += " " + token
@@ -266,8 +297,8 @@ def _read_graph_conllu(conllu_graph_file, token_ids):
             if tag != "O":
                 tag = tag.split("-")[1]
             for node_tuple in node_tuples:
-                if node_tuple[0]==id:
-                    tags_dict[str(node_tuple[1]["label"])]=tag
+                if node_tuple[0] == id:
+                    tags_dict[str(node_tuple[1]["label"])] = tag
 
     return node_tuples, edge_list, tags_dict
 
@@ -275,7 +306,9 @@ def _read_graph_conllu(conllu_graph_file, token_ids):
 def read_graph_from_conllu(conllu_graph_file, token_ids=True):
     """
     Reads into a graph file - either recipe or action graph - in conllu format and transforms it into
-    a NetworkX object
+    a NetworkX object.
+    Input format is CoNLL-U: either the one we have been using where DEPS column values are lists of pairs of strings
+    (e.g. "[(29,'t'),(34,'d')]") or the one that Sandro's parsers output (e.g. "29:t|34:d").
     :param graph_file: path to graph file in conllu format
     :return: a graph in NetworkX format
     """
