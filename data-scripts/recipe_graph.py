@@ -5,15 +5,15 @@ This class has functions to read from and write to different formats, as well ha
 manipulate the graph, e.g. reduction from full graph to action graph.
 Internally, the recipe graph is ALWAYS represented as an nx.DiGraph from which this class inherits.
 """
-# Last updated by Theresa, Nov 2022
+# Last updated by Theresa, Jan 2023
 
-
+import os
 import networkx as nx
 import copy
 import ast
 
 recipe="recipe.conllu" # perfect example: branched, disconnected, cyclic;
-#                        source: "English Yamakata & Mori Corpus\r-200\test\recipe-00043-11216.conllu"
+#                        path: "English Yamakata & Mori Corpus\r-200\test\recipe-00043-11216.conllu"
 
 
 #########################################################################
@@ -30,19 +30,40 @@ class RecipeGraph(nx.DiGraph):
     # additional attribute tokenized_recipe_text which could be a list of string tokens
 ...
 
-write_to_conll():
-    for node in graph:
-        if node has more than one text token:
-            graph.add_nodes_from(list of (token_id,{'text':token_str) tuples)
-    for id,token in enumerate(recipe_text):
-        if id is a node id in graph:
-            write id,token,node['tag'],heads_to_conllu(node.successors) to file
-        else:
-            write line where tag=O and head=0 with deprel=root and no additional heads
-    # Note: action graphs and fat graph tags should be in IOB2 format; in general, the choice
-    # between IOB2 and BIOUL should be an argument of this function with default value IOB2.
+def write_to_conll(self, outfile, tag_format="iob2"):
+    # TODO: action graphs and fat graph tags should be in IOB2 format; in general, the choice
+    ## between IOB2 and BIOUL should be an argument of this function with default value IOB2.
+
+    raise NotImplementedError()
+
+
+    c_graph= copy.deepcopy(self)
+    for node in c_graph:
+        if len(node["label"].split(" ")) < 1:
+            # if node has more than one text token, split node into several nodes s.t. each original token gets its own node
+            new_nodes = list of (token_id,{'text':token_str) tuples
+            c_graph.add_nodes_from(new_nodes)
+            c_graph.delete(node)
+
+    # Write action graph into CoNLL-U file
+    with open((outfile), "w", encoding="utf-8") as o:
+    # with open(networkx_graph, "r", encoding="utf-8") as g:
+
+        for id, token in enumerate(recipe_text):
+            if id is a node id in self: # would that be the case or do I have to compare against node["label"].split(" ")[0].split("_")[0] ?
+                o.write("\t".join(id, token, node['node-type'], heads_to_conllu(node.successors)))
+            else:
+                o.write("\t".join(line where tag = O and head = 0 with deprel=root and no additional heads))
+
+            # double-check? 
+            for node in G.nodes:
+                if node != "end":
+                    id = node
             
-heads_to_conll(list of heads):
+            o.write("\n")
+            print("NetworkX graph has been transformed in conllu format")
+            
+def heads_to_conll(list of heads):
     compose tab-separated string with 
     first head, edge label of first head, (head,label) pairs of all additional edges
     
@@ -71,11 +92,10 @@ def _read_parser_output_json():
     raise NotImplementedError
 def read_parser_output_json():
     raise NotImplementedError
+# same for Sandro's parser?
 
-# I think Sandro said he's using a different input format for his parser?
 
-
-# What does Katharina need from this class?
+# Functions for Katharina's part of the project:
 
 def yield_node(token):
     """associates tokens with AMR nodes (graphs?);
@@ -86,6 +106,9 @@ def import_amr_nodes(amr_graph):
     """
     Set AMR attribute in recipe graph nodes
     """
+    # for node in amr_graph:
+        #identify corresponding node in self
+        # self[some_token]["amr"] = amr node ID of node
     raise NotImplementedError
 
 # The Jovo prototype needs a function next_step() but maybe we'll have a separate class for that;
@@ -125,7 +148,7 @@ def reduced_tag(tag):
     TODO:   a phrase that makes up a node, and a label component describing the node type; tag examples: B-Ac, I-T, etc..
     TODO:   The present conflict stems from the keyword "label" to mean the name of the node,  e.g. 5_the_butter.
 
-    TODO: solution: call recipe labels NE_labels in accordance with Y'20 or even yamakata_labels
+    TODO: solution: call recipe labels NE_labels in accordance with Y'20 or even yamakata_labels or maybe node type (as below in read_conllu)
     """
     if tag in {"Ac", "Ac2", "At", "Af"}:
         return "A"
@@ -164,6 +187,13 @@ def generate_reduced_graph(G, desired):
         G[h][t]['label'] = "edge"
     return G
 
+
+#################################################################
+## functions for reading from and writing to simplified conllu ##
+## original author: Iris                                       ##
+## edits by: Theresa                                           ##
+#################################################################
+
 def edges_from_columns(columns):
     """
     Compiles (edge, edge_label) pairs list for one line in a CoNLL-U file.
@@ -177,7 +207,7 @@ def edges_from_columns(columns):
     if columns[8] == "_":
         pass
     elif columns[8].startswith("["):
-        edges = edges.union(set(ast.literal_eval(columns[8]))) # does it parse edge IDs as int?
+        edges = edges.union(set(ast.literal_eval(columns[8]))) # TODO: does it parse edge IDs as int?
     else:
         # Sandro's parsers' output format
         _edges = columns[8].split("|")
@@ -187,12 +217,8 @@ def edges_from_columns(columns):
 
     return edges
 
-######################################################
-## functions for reading from and writing to conllu ##
-## original author: Iris                            ##
-######################################################
-
-def _read_graph_conllu(conllu_graph_file, token_ids):
+def _read_graph_conllu(conllu_graph_file, token_ids, origin):
+    # TODO: can only read IOB2 tag format so far
     """
     Reads in a graph - either recipe graph or action graph - and extracts all nodes,
     edges, tag labels from the file.
@@ -200,10 +226,12 @@ def _read_graph_conllu(conllu_graph_file, token_ids):
     (e.g. "[(29,'t'),(34,'d')]") or the one that Sandro's parsers output (e.g. "29:t|34:d").
     :param conllu_graph_file: path to graph file in conllu format
     :param token_ids: whether the node labels should include the token ids
-                e.g. if ids = True than node is labelled with "1_Preheat" otherwise with "Preheat"
+                e.g. if ids = True then node is labelled with "1_Preheat" otherwise with "Preheat"
+    :param origin: name of the recipe which the graph encodes
+                    (We want to know where each node in a consolidated graph came from originally.)
     :return: list of nodes, list of edges including labels, tags_dict (key = node, value = tag)
     """
-    node_tuples=[]
+    node_tuples = []
     edge_list = []
 
     parents = []
@@ -212,10 +240,11 @@ def _read_graph_conllu(conllu_graph_file, token_ids):
     with open(conllu_graph_file, "r", encoding="utf-8") as grf:
         complete_token = ""
         prev_id = 0
-        tags_dict={}
+        prev_label = "O"
         for line in grf:
             columns = line.strip().split()
             id = columns[0]
+            # id = int(columns[0] # TODO
             token = columns[1]
             tag = columns[4]
             edges = edges_from_columns(columns)
@@ -224,7 +253,7 @@ def _read_graph_conllu(conllu_graph_file, token_ids):
 
             if tag == "O":
                 if complete_token != "":
-                    node_tuple = (prev_id, {"label": complete_token})
+                    node_tuple = (prev_id, {"label": complete_token, "node-type": prev_label, "origin": origin})
                     node_tuples.append(node_tuple)
                     complete_token = ""
 
@@ -236,21 +265,26 @@ def _read_graph_conllu(conllu_graph_file, token_ids):
                     complete_token = str(id) + "_" + token
                 else:
                     #complete_token = token
-                    complete_token = id #TODO: not ```token``` or ```str(id)+"_"+token```?
+                    complete_token = id #TODO: should be `complete_token = token`, right?
                 prev_id = id
-                """if edge != "0":
-                    edge_list.append((id, edge, {"label": edge_label}))
+                prev_label = tag.split("-")[1]
+                """if edge_head != "0":
+                    edge_list.append((id, edge_head, {"label": edge_label}))
                     parents.append(id)
-                    children.append(edge)"""
-                for edge, edge_label in edges:
-                    if edge != "0":
-                        edge_list.append((id, edge, {"label": edge_label}))
+                    children.append(edge_head)"""
+                for edge_head, edge_label in edges:
+                    #edge_head = int(edge_head)
+                    if edge_head != 0:
+                        edge_list.append((id, edge_head, {"label": edge_label}))
                         parents.append(id)
-                        children.append(edge)
+                        children.append(edge_head)
 
             elif tag[0] == "I":
                 complete_token += " " + token
-                # TODO: We didn't use to ignore the annotations on the "I-" tokens.
+                # TODO: put the following note / explanation into the GitHub Wiki
+                ## We didn't use to ignore the annotations on the "I-" tokens. This is mainly an issue of the
+                ## tree parser. With the proper graph parser, the parser can generate several edges on one
+                ## token (i.e. the "B-" token).
                 ## -  Reason for their existence: The parser annotates all tokens of the recipe text (as opposed to all
                 ## nodes in the graph, i.e. all meaningful chunks of the text).
                 ## - Argument why we'ven been adding such dependency edges to the corresponding node: the parser is
@@ -280,27 +314,30 @@ def _read_graph_conllu(conllu_graph_file, token_ids):
         if complete_token != "":
             node_tuple = (prev_id, {"label": complete_token})
             node_tuples.append(node_tuple)
-            complete_token = ""
 
-    # add 'end' node (should we add also the start node?)
+    # add 'end' node (TODO: should we add also the start node?)
     for child in children:
         if child not in parents:
             edge_list.append((child, "end", {"label": "end"}))
 
-
-    # create dictionary with node as key and tag as value
+    # create dictionary with node label as key and node type (cook label) as value
+    """
+    # just added "node-type" as node attribute above instead of the following code block
+    tags_dict=dict()
     with open(conllu_graph_file, "r", encoding="utf-8") as grf:
         for line in grf:
             columns = line.strip().split()
             id = columns[0]
+            # id = int(id) # TODO: yes or no?
             tag = columns[4]
             if tag != "O":
                 tag = tag.split("-")[1]
             for node_tuple in node_tuples:
                 if node_tuple[0] == id:
                     tags_dict[str(node_tuple[1]["label"])] = tag
+    """
 
-    return node_tuples, edge_list, tags_dict
+    return node_tuples, edge_list #, tags_dict
 
 
 def read_graph_from_conllu(conllu_graph_file, token_ids=True):
@@ -313,32 +350,42 @@ def read_graph_from_conllu(conllu_graph_file, token_ids=True):
     :return: a graph in NetworkX format
     """
     import collections
-    node_list=[]
-    nodes, edges, tags_dict = _read_graph_conllu(conllu_graph_file, token_ids)
+    node_list = []
 
-    # the following extracts not only the node indices, but also their labels
-    for node_tuple in nodes:
-        node_tuple=list(node_tuple)
-        label=node_tuple[1]["label"]
-        node_list.append(label)
+    # conllu_graph_file_name = conllu_graph_file.split('/')[-1]  # remove path and keep only file name
+    # conllu_graph_file_name = '.'.join(conllu_graph_file_name.split('.')[:-1])  # remove file ending .conllu
+    conllu_graph_file_name = os.path.basename(conllu_graph_file)  # remove path and keep only file name
+    conllu_graph_file_name = os.path.splitext(conllu_graph_file_name)[0]  # remove file ending .conllu
+    G_name = "G_" + str(
+        conllu_graph_file_name)  # TODO: should be a node attribute bc later, in the consolidated graph, we want to know where this node came from
+    # TODO: should also be graph attribute
+    raise NotImplementedError("Double-check if this is the correct G_name: ", G_name)
+
+    nodes, edges, tags_dict = _read_graph_conllu(conllu_graph_file, token_ids, G_name)
 
     G = nx.DiGraph()
     G.add_nodes_from(nodes)
     G.add_edges_from(edges)
-    
-    conllu_graph_file_name = conllu_graph_file.split('/')[-1]    # remove path and keep only file name
-    conllu_graph_file_name = '.'.join(conllu_graph_file_name.split('.')[:-1])   # remove file ending .conllu
-    G_name = "G_" + str(conllu_graph_file_name) # TODO: should be a node attribute bc later, in the consolidated graph, we want to know where this node came from
-    # TODO: should also be graph attribute
 
-    # attributes: key=node, value=dict("label":X, "tag":X, "origin":G_name, "alignment":node_aligned, "amr":corresponding_amr) # the attributes list will be expanded if needed
+    """
+    # the following extracts not only the node indices, but also their labels
+    for node_tuple in nodes:
+        node_tuple = list(node_tuple)
+        label = node_tuple[1]["label"]
+        node_list.append(label)
+    """
+
+    # attributes: key=node, value=dict("label":X, "tag":X, "origin":G_name, "alignment":node_aligned, "amr":corresponding_amr)
+    # the attributes list will be expanded if needed
+    # attributes can be accessed like this:
+    # print(G.nodes['1']['label'])
+    """
     nodes_attributes = collections.defaultdict(dict)
     for node_tuple in nodes:
         label=node_tuple[1]["label"]
         nodes_attributes[node_tuple[0]] = {"label":label, "tag":tags_dict[label], "origin":G_name} #"alignment":0, "amr":0}
     nx.set_node_attributes(G, nodes_attributes)
-    # attributes can be accessed like this:
-    # print(G.nodes['1']['label'])
+    """
 
     return G
 
@@ -346,8 +393,9 @@ def write_graph_to_conllu(networkx_graph, outfile):
     """
     Writes the recipe graph into the CoNLL-U format that we've been using all through the project, esp. for the tagger and parser.
     """
+    # see at the very top of the file
     raise NotImplementedError
-  
+
 def write_graph_to_simple_conllu(networkx_graph, outfile):
     """
     #:param outdirectory: it is possible to either specify outdir or it gets automatically created
@@ -379,7 +427,7 @@ def write_graph_to_simple_conllu(networkx_graph, outfile):
                 o.write("\n")
     # TODO: bug: Why does the last line appear twice in the output file?
     print("NetworkX graph has been transformed in conllu format")
-    
+
 
 ## Test ##
 # 1. read graph from file
