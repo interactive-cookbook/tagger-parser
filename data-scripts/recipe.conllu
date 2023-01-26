@@ -1,6 +1,6 @@
 1	Preheat	_	VV0	B-Ac	_	79	a-eq	_	_
 2	an	_	AT1	O	_	0	root	_	_
-3	oven	_	NN1	B-T	_	1	t	[(80, 't-eq')]	_
+3	oven	_	NN1	B-T	_	1	t	[(80,'t-eq')]	_
 4	to	_	II	O	_	0	root	_	_
 5	220	_	MC	B-St	_	1	o	_	_
 6	C	_	ZZ1	I-St	_	0	root	_	_
@@ -19,7 +19,7 @@
 19	aside	_	RL	I-Ac	_	0	root	_	_
 20	until	_	ICS	O	_	0	root	_	_
 21	ready	_	JJ	O	_	0	root	_	_
-22	to	_	TO	B-Ac2	_	117	f-part-of	[(119, 'f-part-of')]	_
+22	to	_	TO	B-Ac2	_	117	f-part-of	[(119,'f-part-of')]	_
 23	serve	_	VV0	I-Ac2	_	0	root	_	_
 24	.	_	.	O	_	0	root	_	_
 25	Pat	_	NP1	B-Ac	_	29	d	_	_
@@ -62,7 +62,7 @@
 62	per	_	II	O	_	0	root	_	_
 63	side	_	NN1	B-F	_	59	o	_	_
 64	.	_	.	O	_	0	root	_	_
-65	Transfer	_	VV0	B-Ac	_	73	t	[(82, 'f-eq'), (93, 'f-part-of')]	_
+65	Transfer	_	VV0	B-Ac	_	73	t	[(82,'f-eq'),(93,'f-part-of')]	_
 66	steaks	_	NN2	B-F	_	65	t	_	_
 67	to	_	II	O	_	0	root	_	_
 68	an	_	AT1	O	_	0	root	_	_
@@ -70,7 +70,7 @@
 70	baking	_	NN1	B-T	_	69	d	_	_
 71	tin	_	NN1	I-T	_	0	root	_	_
 72	and	_	CC	O	_	0	root	_	_
-73	roast	_	VV0	B-Ac	_	102	d	[(114, 'f-eq')]	_
+73	roast	_	VV0	B-Ac	_	102	d	[(114,'f-eq')]	_
 74	in	_	II	O	_	0	root	_	_
 75	the	_	AT	O	_	0	root	_	_
 76	middle	_	NN1	O	_	0	root	_	_
@@ -90,7 +90,7 @@
 90	juicy	_	NN1	B-Sf	_	73	v-tm	_	_
 91	in	_	II	O	_	0	root	_	_
 92	the	_	AT	O	_	0	root	_	_
-93	centre	_	NN1	B-F	_	88	a	[(90, 'a')]	_
+93	centre	_	NN1	B-F	_	88	a	[(90,'a')]	_
 94	,	_	,	O	_	0	root	_	_
 95	about	_	RG	B-D	_	73	o	_	_
 96	10	_	MC	I-D	_	0	root	_	_
